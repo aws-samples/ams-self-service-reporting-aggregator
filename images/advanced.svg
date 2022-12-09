@@ -1,0 +1,20 @@
+<svg width="174.2" height="20" viewBox="0 0 1742 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AMS Advanced: Incompatible">
+  <title>AMS Advanced: Incompatible</title>
+  <linearGradient id="a" x2="0" y2="100%">
+    <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <mask id="m"><rect width="1742" height="200" rx="30" fill="#FFF"/></mask>
+  <g mask="url(#m)">
+    <rect width="919" height="200" fill="#555"/>
+    <rect width="823" height="200" fill="#E43" x="919"/>
+    <rect width="1742" height="200" fill="url(#a)"/>
+  </g>
+  <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
+    <text x="60" y="148" textLength="819" fill="#000" opacity="0.25">AMS Advanced</text>
+    <text x="50" y="138" textLength="819">AMS Advanced</text>
+    <text x="974" y="148" textLength="723" fill="#000" opacity="0.25">Incompatible</text>
+    <text x="964" y="138" textLength="723">Incompatible</text>
+  </g>
+  
+</svg>

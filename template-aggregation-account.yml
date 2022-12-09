@@ -1,0 +1,989 @@
+---
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this
+# software and associated documentation files (the "Software"), to deal in the Software
+# without restriction, including without limitation the rights to use, copy, modify,
+# merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+# INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+AWSTemplateFormatVersion: "2010-09-09"
+Description: https://github.com/aws-samples/ams-self-service-reporting-aggregator
+Parameters:
+  AWSOrganizationId:
+    Type: String
+    AllowedPattern: ^o-[a-z0-9]{10,32}$
+    Description: The AWS Organization ID into which this solution will be deployed
+  DailyBackupCrawlerSchedule:
+    Type: String
+    AllowedPattern: ^cron\((\S+\s){5}\S+\)$
+    Default: cron(0 21 * * ? *)
+    Description: The time at which the Daily Backup Crawler will be scheduled to run (default - 9pm UTC every day)
+  PatchDetailsCrawlerSchedule:
+    Type: String
+    AllowedPattern: ^cron\((\S+\s){5}\S+\)$
+    Default: cron(0 21 * * ? *)
+    Description: The time at which the Patch Details Crawler will be scheduled to run (default - 9pm UTC every day)
+  InstanceDetailsCrawlerSchedule:
+    Type: String
+    AllowedPattern: ^cron\((\S+\s){5}\S+\)$
+    Default: cron(0 21 * * ? *)
+    Description: The time at which the Instance Details Crawler will be scheduled to run (default - 9pm UTC every day)
+  WindowsMissingCrawlerSchedule:
+    Type: String
+    AllowedPattern: ^cron\((\S+\s){5}\S+\)$
+    Default: cron(0 21 * * ? *)
+    Description: The time at which the Windows Missing Crawler will be scheduled to run (default - 9pm UTC every day)
+Resources:
+  AggregatorKMSKey:
+    Type: AWS::KMS::Key
+    Properties:
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: DelegateAccessToAccountOwner
+            Action: kms:*
+            Effect: Allow
+            Principal:
+              AWS: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:root
+            Resource: "*"
+          - Sid: AllPrincipalsInOrgCanEncrypt
+            Action:
+              - kms:Encrypt
+              - kms:GenerateDataKey
+              - kms:ReEncrypt*
+            Condition:
+              StringEquals:
+                aws:PrincipalOrgID:
+                  Ref: AWSOrganizationId
+            Effect: Allow
+            Principal:
+              AWS: "*"
+            Resource: "*"
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+  AggregatorKMSKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: alias/AMSReportAggregatorKey
+      TargetKeyId: !GetAtt AggregatorKMSKey.Arn
+  AggregatorS3AccessLogsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              KMSMasterKeyID: !GetAtt AggregatorKMSKey.Arn
+              SSEAlgorithm: aws:kms
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+  AggregatorS3AccessLogsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref AggregatorS3AccessLogsBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: ForceEncryptionInTransit
+            Action: s3:*
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+            Effect: Deny
+            Principal:
+              AWS: "*"
+            Resource:
+              - !GetAtt AggregatorS3AccessLogsBucket.Arn
+              - !Sub "${AggregatorS3AccessLogsBucket.Arn}/*"
+  AggregatorAggregationBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      LoggingConfiguration:
+        DestinationBucketName: !Ref AggregatorS3AccessLogsBucket
+        LogFilePrefix: logs/aggregation_bucket/
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              KMSMasterKeyID: !GetAtt AggregatorKMSKey.Arn
+              SSEAlgorithm: aws:kms
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+  AggregatorAggregationBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref AggregatorAggregationBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: ForceEncryptionInTransit
+            Action: s3:*
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+            Effect: Deny
+            Principal:
+              AWS: "*"
+            Resource:
+              - !GetAtt AggregatorAggregationBucket.Arn
+              - !Sub "${AggregatorAggregationBucket.Arn}/*"
+          - Sid: AllPrincipalsInOrgCanPutObject
+            Action: s3:PutObject
+            Condition:
+              StringEquals:
+                aws:PrincipalOrgID:
+                  Ref: AWSOrganizationId
+            Effect: Allow
+            Principal:
+              AWS: "*"
+            Resource:
+              - !Sub "${AggregatorAggregationBucket.Arn}/*"
+  AggregatorAthenaWorkgroupBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      LoggingConfiguration:
+        DestinationBucketName: !Ref AggregatorS3AccessLogsBucket
+        LogFilePrefix: logs/athena_workgroup_bucket/
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              KMSMasterKeyID: !GetAtt AggregatorKMSKey.Arn
+              SSEAlgorithm: aws:kms
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+  AggregatorAthenaWorkgroupBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref AggregatorAthenaWorkgroupBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: ForceEncryptionInTransit
+            Action: s3:*
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+            Effect: Deny
+            Principal:
+              AWS: "*"
+            Resource:
+              - !GetAtt AggregatorAthenaWorkgroupBucket.Arn
+              - !Sub "${AggregatorAthenaWorkgroupBucket.Arn}/*"
+  AggregatorAthenaWorkgroup:
+    Type: AWS::Athena::WorkGroup
+    Properties:
+      Name: ams-report-aggregator-workgroup
+      Description: Athena Workgroup for the AMS Report Aggregator Solution
+      State: ENABLED
+      WorkGroupConfiguration:
+        ResultConfiguration:
+          OutputLocation: !Sub "s3://${AggregatorAthenaWorkgroupBucket}/queryresults/"
+  AggregatorDB:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: !Ref "AWS::AccountId"
+      DatabaseInput:
+        Name: amsaggregatordatabase
+  AggregatorPatchDetailsTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref "AWS::AccountId"
+      DatabaseName: !Ref "AggregatorDB"
+      TableInput:
+        Name: amsaggregatorpatchdetails
+        PartitionKeys:
+          - Name: reportdate
+            Type: string
+          - Name: awsaccountid
+            Type: string
+        StorageDescriptor:
+          Columns:
+            - Name: dataset_datetime
+              Type: string
+            - Name: aws_account_id
+              Type: string
+            - Name: account_name
+              Type: string
+            - Name: instance_id
+              Type: string
+            - Name: instance_name
+              Type: string
+            - Name: prod_account
+              Type: string
+            - Name: account_status
+              Type: string
+            - Name: account_sla
+              Type: string
+            - Name: instance_platform_type
+              Type: string
+            - Name: instance_stack_type
+              Type: string
+            - Name: instance_state
+              Type: string
+            - Name: instance_platform_name
+              Type: string
+            - Name: instance_patch_group_type
+              Type: string
+            - Name: instance_patch_group
+              Type: string
+            - Name: window_id
+              Type: string
+            - Name: window_state
+              Type: string
+            - Name: window_type
+              Type: string
+            - Name: window_next_execution_time
+              Type: string
+            - Name: last_execution_window
+              Type: string
+            - Name: window_next_exec_yyyy
+              Type: string
+            - Name: window_next_exec_mm
+              Type: string
+            - Name: window_next_exec_D
+              Type: string
+            - Name: window_next_exec_mmdd
+              Type: string
+            - Name: window_next_exec_HHMI
+              Type: string
+            - Name: window_duration
+              Type: string
+            - Name: mw_covered_flag
+              Type: string
+            - Name: patch_baseline_id
+              Type: string
+            - Name: patch_status
+              Type: string
+            - Name: noncompliant_critical
+              Type: string
+            - Name: noncompliant_high
+              Type: string
+            - Name: noncompliant_medium
+              Type: string
+            - Name: noncompliant_low
+              Type: string
+            - Name: noncompliant_informational
+              Type: string
+            - Name: noncompliant_unspecified
+              Type: string
+            - Name: noncompliant_total
+              Type: string
+          Location: !Sub "s3://${AggregatorAggregationBucket}/patch/patchdetails"
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.IgnoreKeyTextOutputFormat
+          SerdeInfo:
+            SerializationLibrary: org.openx.data.jsonserde.JsonSerDe
+            Parameters:
+              serialization.format: "1"
+        TableType: EXTERNAL_TABLE
+  AggregatorExplicitDenyAMSResourcesPolicy:
+    # AMS deploys resources into customer accounts which are necessary for the operation
+    # of the AMS Service. This policy, when attached to IAM Roles in this template, prevents those
+    # Principals from mutating AMS Managed Resources through the use of explicit deny statements.
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: Explicitly denies Glue and CloudWatch actions on AMS Management Resources
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: ExplicitDenyAMSManagedLogResources
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Effect: Deny
+            Resource:
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/AMS/*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/Ams/*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/ams/*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/AMS*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/Ams*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/ams*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/AMS*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/Ams*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/ams*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/mc/*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/MC/*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/Mc/*
+          - Sid: ExplicitDenyAMSManagedGlueResources
+            Action:
+              - glue:*
+            Effect: Deny
+            Resource:
+              - !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:ams*
+              - !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:mc-a*-internal-*
+  AggregatorPatchDetailsCrawlerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: glue.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSGlueServiceRole
+        - !Ref AggregatorExplicitDenyAMSResourcesPolicy
+  AggregatorPatchDetailsCrawlerRolePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: GlueCrawlerLogging
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Effect: Allow
+            Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
+          - Sid: GlueCrawlerMutate
+            Action:
+              - glue:CreateTable
+              - glue:ImportCatalogToGlue
+              - glue:UpdateDatabase
+              - glue:UpdatePartition
+              - glue:UpdateTable
+            Effect: Allow
+            Resource: !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:*
+          - Sid: GlueCrawlerS3Read
+            Action: s3:GetObject
+            Effect: Allow
+            Resource:
+              - !GetAtt AggregatorAggregationBucket.Arn
+              - !Sub "${AggregatorAggregationBucket.Arn}/patch/patchdetails/*"
+          - Sid: GlueCrawlerDecryptObjects
+            Action: kms:Decrypt
+            Effect: Allow
+            Resource: !GetAtt AggregatorKMSKey.Arn
+      PolicyName: AggregatorPatchDetailsCrawlerRolePolicy
+      Roles:
+        - Ref: AggregatorPatchDetailsCrawlerRole
+  AggregatorPatchDetailsCrawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Description: Scheduled to crawl 'Patch Details' reports daily.
+      Role: !GetAtt AggregatorPatchDetailsCrawlerRole.Arn
+      Schedule:
+        ScheduleExpression: !Ref PatchDetailsCrawlerSchedule
+      Targets:
+        CatalogTargets:
+          - DatabaseName: !Ref AggregatorDB
+            Tables:
+              - !Ref AggregatorPatchDetailsTable
+      DatabaseName: !Ref AggregatorDB
+      Name: aggregatorcrawler-patchdetails
+      SchemaChangePolicy:
+        DeleteBehavior: LOG
+        UpdateBehavior: UPDATE_IN_DATABASE
+  AggregatorWindowsMissingPatchesTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref "AWS::AccountId"
+      DatabaseName: !Ref "AggregatorDB"
+      TableInput:
+        Name: amsaggregatorwindowsmissingpatches
+        PartitionKeys:
+          - Name: reportdate
+            Type: string
+          - Name: awsaccountid
+            Type: string
+        StorageDescriptor:
+          Columns:
+            - Name: dataset_datetime
+              Type: string
+            - Name: aws_account_id
+              Type: string
+            - Name: account_name
+              Type: string
+            - Name: customer_name_parent
+              Type: string
+            - Name: customer_name
+              Type: string
+            - Name: prod_account
+              Type: string
+            - Name: account_status
+              Type: string
+            - Name: account_type
+              Type: string
+            - Name: account_sla
+              Type: string
+            - Name: instance_id
+              Type: string
+            - Name: instance_name
+              Type: string
+            - Name: instance_platform_type
+              Type: string
+            - Name: instance_state
+              Type: string
+            - Name: patch_id
+              Type: string
+            - Name: patch_sev
+              Type: string
+            - Name: patch_class
+              Type: string
+            - Name: release_dt_utc
+              Type: string
+            - Name: install_state
+              Type: string
+            - Name: days_unpatched
+              Type: string
+            - Name: days_unpatched_bucket
+              Type: string
+          Location: !Sub "s3://${AggregatorAggregationBucket}/patch/windowsmissingpatches"
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.IgnoreKeyTextOutputFormat
+          SerdeInfo:
+            SerializationLibrary: org.openx.data.jsonserde.JsonSerDe
+            Parameters:
+              serialization.format: "1"
+        TableType: EXTERNAL_TABLE
+  AggregatorWindowsMissingPatchesCrawlerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: glue.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSGlueServiceRole
+        - !Ref AggregatorExplicitDenyAMSResourcesPolicy
+  AggregatorWindowsMissingPatchesCrawlerRolePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: GlueCrawlerLogging
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Effect: Allow
+            Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
+          - Sid: GlueCrawlerMutate
+            Action:
+              - glue:CreateTable
+              - glue:ImportCatalogToGlue
+              - glue:UpdateDatabase
+              - glue:UpdatePartition
+              - glue:UpdateTable
+            Effect: Allow
+            Resource: !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:*
+          - Sid: GlueCrawlerS3Read
+            Action: s3:GetObject
+            Effect: Allow
+            Resource:
+              - !GetAtt AggregatorAggregationBucket.Arn
+              - !Sub "${AggregatorAggregationBucket.Arn}/patch/windowsmissingpatches/*"
+          - Sid: GlueCrawlerDecryptObjects
+            Action: kms:Decrypt
+            Effect: Allow
+            Resource: !GetAtt AggregatorKMSKey.Arn
+      PolicyName: AggregatorWindowsMissingPatchesCrawlerRolePolicy
+      Roles:
+        - Ref: AggregatorWindowsMissingPatchesCrawlerRole
+  AggregatorWindowsMissingPatchesCrawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Description: Scheduled to crawl 'Windows Missing Patches' reports daily.
+      Role: !GetAtt AggregatorWindowsMissingPatchesCrawlerRole.Arn
+      Schedule:
+        ScheduleExpression: !Ref WindowsMissingCrawlerSchedule
+      Targets:
+        CatalogTargets:
+          - DatabaseName: !Ref AggregatorDB
+            Tables:
+              - !Ref AggregatorWindowsMissingPatchesTable
+      DatabaseName: !Ref AggregatorDB
+      Name: aggregatorcrawler-windowsmissingpatches
+      SchemaChangePolicy:
+        DeleteBehavior: LOG
+        UpdateBehavior: UPDATE_IN_DATABASE
+  AggregatorInstanceDetailsPOTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref "AWS::AccountId"
+      DatabaseName: !Ref "AggregatorDB"
+      TableInput:
+        Name: amsaggregatorinstancedetailspo
+        PartitionKeys:
+          - Name: reportdate
+            Type: string
+          - Name: awsaccountid
+            Type: string
+        StorageDescriptor:
+          Columns:
+            - Name: dataset_datetime
+              Type: string
+            - Name: aws_account_id
+              Type: string
+            - Name: account_name
+              Type: string
+            - Name: prod_account
+              Type: string
+            - Name: account_status
+              Type: string
+            - Name: account_sla
+              Type: string
+            - Name: malz_flag
+              Type: string
+            - Name: malz_role
+              Type: string
+            - Name: access_restrictions
+              Type: string
+            - Name: instance_id
+              Type: string
+            - Name: instance_name
+              Type: string
+            - Name: instance_platform_type
+              Type: string
+            - Name: instance_platform_name
+              Type: string
+            - Name: instance_stack_name
+              Type: string
+            - Name: instance_stack_type
+              Type: string
+            - Name: instance_asg_name
+              Type: string
+            - Name: instance_patch_group
+              Type: string
+            - Name: instance_patch_group_type
+              Type: string
+            - Name: instance_state
+              Type: string
+            - Name: mw_covered_flag
+              Type: string
+            - Name: window_next_execution_time
+              Type: string
+          Location: !Sub "s3://${AggregatorAggregationBucket}/patch/instancedetailspatchorchestrator"
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.IgnoreKeyTextOutputFormat
+          SerdeInfo:
+            SerializationLibrary: org.openx.data.jsonserde.JsonSerDe
+            Parameters:
+              serialization.format: "1"
+        TableType: EXTERNAL_TABLE
+  AggregatorInstanceDetailsPOCrawlerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: glue.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSGlueServiceRole
+        - !Ref AggregatorExplicitDenyAMSResourcesPolicy
+  AggregatorInstanceDetailsPOCrawlerRolePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: GlueCrawlerLogging
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Effect: Allow
+            Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
+          - Sid: GlueCrawlerMutate
+            Action:
+              - glue:CreateTable
+              - glue:ImportCatalogToGlue
+              - glue:UpdateDatabase
+              - glue:UpdatePartition
+              - glue:UpdateTable
+            Effect: Allow
+            Resource: !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:*
+          - Sid: GlueCrawlerS3Read
+            Action: s3:GetObject
+            Effect: Allow
+            Resource:
+              - !GetAtt AggregatorAggregationBucket.Arn
+              - !Sub "${AggregatorAggregationBucket.Arn}/patch/instancedetailspatchorchestrator/*"
+          - Sid: GlueCrawlerDecryptObjects
+            Action: kms:Decrypt
+            Effect: Allow
+            Resource: !GetAtt AggregatorKMSKey.Arn
+      PolicyName: AggregatorInstanceDetailsPOCrawlerRolePolicy
+      Roles:
+        - Ref: AggregatorInstanceDetailsPOCrawlerRole
+  AggregatorInstanceDetailsPOCrawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Description: Scheduled to crawl 'Instance Details Patch Orchestrator' reports daily.
+      Role: !GetAtt AggregatorInstanceDetailsPOCrawlerRole.Arn
+      Schedule:
+        ScheduleExpression: !Ref DailyBackupCrawlerSchedule
+      Targets:
+        CatalogTargets:
+          - DatabaseName: !Ref AggregatorDB
+            Tables:
+              - !Ref AggregatorInstanceDetailsPOTable
+      DatabaseName: !Ref AggregatorDB
+      Name: aggregatorcrawler-instancedetailspo
+      SchemaChangePolicy:
+        DeleteBehavior: LOG
+        UpdateBehavior: UPDATE_IN_DATABASE
+  AggregatorDailyBackupTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref "AWS::AccountId"
+      DatabaseName: !Ref "AggregatorDB"
+      TableInput:
+        Name: amsaggregatordailybackup
+        PartitionKeys:
+          - Name: reportdate
+            Type: string
+          - Name: awsaccountid
+            Type: string
+        StorageDescriptor:
+          Columns:
+            - Name: dataset_datetime
+              Type: string
+            - Name: aws_account_id
+              Type: string
+            - Name: account_name
+              Type: string
+            - Name: account_sla
+              Type: string
+            - Name: malz_flag
+              Type: string
+            - Name: malz_role
+              Type: string
+            - Name: access_restrictions
+              Type: string
+            - Name: resource_arn
+              Type: string
+            - Name: resource_id
+              Type: string
+            - Name: resource_region
+              Type: string
+            - Name: resource_type
+              Type: string
+            - Name: recovery_point_arn
+              Type: string
+            - Name: recovery_point_id
+              Type: string
+            - Name: start_by_dt_utc
+              Type: string
+            - Name: creation_dt_utc
+              Type: string
+            - Name: completion_dt_utc
+              Type: string
+            - Name: expiration_dt_utc
+              Type: string
+            - Name: backup_job_status
+              Type: string
+            - Name: backup_type
+              Type: string
+            - Name: backup_job_id
+              Type: string
+            - Name: backup_size_in_bytes
+              Type: string
+            - Name: backup_plan_arn
+              Type: string
+            - Name: backup_plan_id
+              Type: string
+            - Name: backup_plan_name
+              Type: string
+            - Name: backup_plan_version
+              Type: string
+            - Name: backup_rule_id
+              Type: string
+            - Name: backup_vault_arn
+              Type: string
+            - Name: backup_vault_name
+              Type: string
+            - Name: iam_role_arn
+              Type: string
+            - Name: recovery_point_status
+              Type: string
+            - Name: recovery_point_delete_after_days
+              Type: string
+            - Name: recovery_point_move_to_cold_storage_after_days
+              Type: string
+            - Name: recovery_point_is_encrypted
+              Type: string
+            - Name: recovery_point_encryption_key_arn
+              Type: string
+            - Name: volume_state
+              Type: string
+            - Name: instance_id
+              Type: string
+            - Name: instance_state
+              Type: string
+            - Name: stack_id
+              Type: string
+            - Name: stack_name
+              Type: string
+            - Name: tag_ams_default_patch_group
+              Type: string
+            - Name: tag_app_id
+              Type: string
+            - Name: tag_app_name
+              Type: string
+            - Name: tag_backup
+              Type: string
+            - Name: tag_compliance_framework
+              Type: string
+            - Name: tag_cost_center
+              Type: string
+            - Name: tag_customer
+              Type: string
+            - Name: tag_data_classification
+              Type: string
+            - Name: tag_environment_type
+              Type: string
+            - Name: tag_hours_of_operation
+              Type: string
+            - Name: tag_owner_team
+              Type: string
+            - Name: tag_owner_team_email
+              Type: string
+            - Name: tag_patch_group
+              Type: string
+            - Name: tag_support_priority
+              Type: string
+          Location: !Sub "s3://${AggregatorAggregationBucket}/backup/dailybackupreport"
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.IgnoreKeyTextOutputFormat
+          SerdeInfo:
+            SerializationLibrary: org.openx.data.jsonserde.JsonSerDe
+            Parameters:
+              serialization.format: "1"
+        TableType: EXTERNAL_TABLE
+  AggregatorDailyBackupCrawlerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: glue.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSGlueServiceRole
+        - !Ref AggregatorExplicitDenyAMSResourcesPolicy
+  AggregatorDailyBackupCrawlerRolePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: GlueCrawlerLogging
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Effect: Allow
+            Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
+          - Sid: GlueCrawlerMutate
+            Action:
+              - glue:CreateTable
+              - glue:ImportCatalogToGlue
+              - glue:UpdateDatabase
+              - glue:UpdatePartition
+              - glue:UpdateTable
+            Effect: Allow
+            Resource: !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:*
+          - Sid: GlueCrawlerS3Read
+            Action: s3:GetObject
+            Effect: Allow
+            Resource:
+              - !GetAtt AggregatorAggregationBucket.Arn
+              - !Sub "${AggregatorAggregationBucket.Arn}/backup/dailybackupreport/*"
+          - Sid: GlueCrawlerDecryptObjects
+            Action: kms:Decrypt
+            Effect: Allow
+            Resource: !GetAtt AggregatorKMSKey.Arn
+      PolicyName: AggregatorDailyBackupCrawlerRolePolicy
+      Roles:
+        - Ref: AggregatorDailyBackupCrawlerRole
+  AggregatorDailyBackupCrawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Description: Scheduled to crawl 'Daily Backup' reports daily
+      Role: !GetAtt AggregatorDailyBackupCrawlerRole.Arn
+      Schedule:
+        ScheduleExpression: !Ref DailyBackupCrawlerSchedule
+      Targets:
+        CatalogTargets:
+          - DatabaseName: !Ref AggregatorDB
+            Tables:
+              - !Ref AggregatorDailyBackupTable
+      DatabaseName: !Ref AggregatorDB
+      Name: aggregatorcrawler-dailybackup
+      SchemaChangePolicy:
+        DeleteBehavior: LOG
+        UpdateBehavior: UPDATE_IN_DATABASE
+  QueryYesterdaysPatchStatusOfEC2Instances:
+    Type: AWS::Athena::NamedQuery
+    Properties:
+      WorkGroup: !Ref AggregatorAthenaWorkgroup
+      Database: !Ref AggregatorDB
+      Description: Example query, returns the Patch Status of EC2 Instances using yesterday's data
+      Name: Patch-EC2-PatchStatus-Yesterday
+      QueryString: |
+        SELECT
+          reportdate,
+          awsaccountid,
+          account_name,
+          instance_id,
+          instance_name,
+          instance_state,
+          instance_platform_type,
+          instance_platform_name,
+          window_next_execution_time,
+          last_execution_window,
+          noncompliant_critical,
+          noncompliant_high,
+          noncompliant_medium,
+          noncompliant_low,
+          noncompliant_informational,
+          noncompliant_unspecified,
+          noncompliant_total
+        FROM 
+          amsaggregatordatabase.amsaggregatorpatchdetails 
+        WHERE 
+          reportdate = cast((current_date - interval '1' day) as varchar)
+  QueryTodaysPatchStatusOfEC2Instances:
+    Type: AWS::Athena::NamedQuery
+    Properties:
+      WorkGroup: !Ref AggregatorAthenaWorkgroup
+      Database: !Ref AggregatorDB
+      Description: Example query, returns the Patch Status of EC2 Instances using today's data
+      Name: Patch-EC2-PatchStatus-Today
+      QueryString: |
+        SELECT
+          reportdate
+          awsaccountid,
+          account_name,
+          instance_id,
+          instance_name,
+          instance_state,
+          instance_platform_type,
+          instance_platform_name,
+          window_next_execution_time,
+          last_execution_window,
+          noncompliant_critical,
+          noncompliant_high,
+          noncompliant_medium,
+          noncompliant_low,
+          noncompliant_informational,
+          noncompliant_unspecified,
+          noncompliant_total
+        FROM 
+          amsaggregatordatabase.amsaggregatorpatchdetails 
+        WHERE 
+          reportdate = cast((current_date) as varchar)
+  QueryTodaysBackupJobs:
+    Type: AWS::Athena::NamedQuery
+    Properties:
+      WorkGroup: !Ref AggregatorAthenaWorkgroup
+      Database: !Ref AggregatorDB
+      Description: Example query, returns the Status of AWS Backup Jobs
+      Name: Backup-BackupStatus-Today
+      QueryString: |
+        SELECT
+          *
+        FROM 
+          amsaggregatordatabase.amsaggregatordailybackup 
+        WHERE 
+          reportdate = cast((current_date) as varchar)
+  QueryTodaysUnsuccessfulBackupJobs:
+    Type: AWS::Athena::NamedQuery
+    Properties:
+      WorkGroup: !Ref AggregatorAthenaWorkgroup
+      Database: !Ref AggregatorDB
+      Description: Example query, returns details of unsuccessful or incomplete AWS Backup Jobs from today
+      Name: Backup-UnsuccessfulOrIncompleteBackupStatus-Today
+      QueryString: |
+        SELECT
+          *
+        FROM 
+          amsaggregatordatabase.amsaggregatordailybackup 
+        WHERE 
+          reportdate = cast((current_date) as varchar)
+        AND
+          backup_job_status != 'COMPLETED'
+  AggregatorAthenaPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: Attach this Policy to an existing IAM Role that has Athena permissions
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: EncryptAthenaBucketDecryptAggregatorBucket
+            Action:
+              - kms:Encrypt
+              - kms:Decrypt
+              - kms:GenerateDataKey
+            Effect: Allow
+            Resource: !GetAtt AggregatorKMSKey.Arn
+          - Sid: GetListPutAthenaSavedQuerybucket
+            Action:
+              - s3:GetBucketLocation
+              - s3:GetObject
+              - s3:ListBucket
+              - s3:ListBucketMultipartUploads
+              - s3:ListMultipartUploadParts
+              - s3:AbortMultipartUpload
+              - s3:PutObject
+              - s3:PutBucketPublicAccessBlock
+            Effect: Allow
+            Resource:
+              - !GetAtt AggregatorAthenaWorkgroupBucket.Arn
+              - !Sub "${AggregatorAthenaWorkgroupBucket.Arn}/*"
+          - Sid: GetListAggregatorbucket
+            Action:
+              - s3:GetObject
+              - s3:ListBucket
+            Effect: Allow
+            Resource:
+              - !GetAtt AggregatorAggregationBucket.Arn
+              - !Sub "${AggregatorAggregationBucket.Arn}/*"
+Outputs:
+  AggregatorAggregationBucketName:
+    Description: Name of the S3 Bucket into which reports from member accounts will be aggregated
+    Value: !Ref AggregatorAggregationBucket
+    Export:
+      Name: AggregatorAggregationBucketName
+  AggregatorKMSKeyArn:
+    Description: ARN of the KMS Key used to encrypt data in this solution
+    Value: !GetAtt AggregatorKMSKey.Arn
+    Export:
+      Name: AggregatorKMSKeyArn
+  AggregatorAthenaPolicyArn:
+    Description: ARN of an IAM Managed Policy which can be attached to an existing IAM role that has Athena permissions
+    Value: !Ref AggregatorAthenaPolicy
+    Export:
+      Name: AggregatorAthenaPolicyArn
