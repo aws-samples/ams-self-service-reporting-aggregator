@@ -1,4 +1,4 @@
-# ams-self-service-reporting-aggregator
+# self-service-reporting-aggregator
 
 ![AMS Accelerate is Compatible](./images/accelerate.svg)
 ![AMS Advanced is Incompatible](./images/advanced.svg)
