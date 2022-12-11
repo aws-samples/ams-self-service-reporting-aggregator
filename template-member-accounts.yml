@@ -62,7 +62,7 @@ Resources:
       Handler: index.lambda_handler
       Role: !GetAtt ReportAggregatorFunctionRole.Arn
       Runtime: python3.9
-      Timeout: 5
+      Timeout: 10
       ReservedConcurrentExecutions: 4
       Environment:
         Variables:
