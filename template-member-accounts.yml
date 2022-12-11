@@ -167,6 +167,7 @@ Resources:
             Effect: Allow
             Resource: !Sub "arn:${AWS::Partition}:s3:::${ReportAggregatorBucketName}/*"
           - Action:
+              - kms:Decrypt
               - kms:Encrypt
               - kms:GenerateDataKey
               - kms:ReEncrypt*
