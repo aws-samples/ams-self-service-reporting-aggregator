@@ -32,8 +32,8 @@ After deploying the CloudFormation templates provided in this package, AMS SSR r
 
 ## Prior to deployment
 
-- You must carefully consider who in your organization has access to, and the ability to query the source and aggregated data produced by this package.
-- It is good practice to review the code and templates in this package prior to deployment.
+- 🚨 You must carefully consider who in your organization has access to, and the ability to query the source and aggregated data produced by this package.
+- 🚨 It is good practice to review the code and templates in this package prior to deployment.
 
 ## Deployment
 
@@ -81,7 +81,7 @@ _Output `AggregatorAthenaPolicyArn` is described in the section `Consuming data 
 
 The CloudFormation template `template-aggregation-account.yml` deploys an IAM Managed Policy `AggregatorAthenaPolicy`, which can be attached to an IAM Role that has Athena Access (for example: [Athena Full Access](https://docs.aws.amazon.com/athena/latest/ug/managed-policies.html#amazonathenafullaccess-managed-policy)). This Managed Policy provides additional permissions that allow an IAM Principal to encrypt/decrypt data using the KMS key deployed by this package, and access the S3 buckets deployed by this package.
 
-**You must carefully consider who in your organization has access to, and the ability to query the data consumed and produced by this package.**
+**🚨 You must carefully consider who in your organization has access to, and the ability to query the data consumed and produced by this package.**
 
 ### Querying the aggregated data
 
