@@ -109,6 +109,7 @@ In November 2022 this package was deployed in a development environment consisti
 - You can minimize storage costs by deleting or archiving unused reports with [Amazon S3 lifecycle configurations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the Aggregator account.
 - You can reduce AWS Glue costs by reducing the frequency at which Glue Crawlers crawl new data.
 - This package aggregates 4x AMS Self-Service Reporting reports. You can modify this package to disable the aggregation of reports that you do not intend to consume.
+- By default, logs from this package are kept indefinitely and never expire. You can [adjust the retention period](https://docs.aws.amazon.com/managedservices/latest/userguide/log-customize-retention.html) for each log group, keeping the indefinite retention, or choosing a retention period between 10 years and one day.
 
 ## Security
 
