@@ -91,7 +91,7 @@ To get started querying aggregated data, from the Athena Console in the report a
 
 ## How much does this cost?
 
-The cost to operate this package is based on a number of factors that are unique to your AWS environment, therefore charges cannot be estimated in this readme file. For example:
+The cost to operate this package is based on a number of factors that are unique to your AWS environment, therefore charges cannot be estimated in this readme file. The following factors will directly contribute to the cost of operating this package:
 
 - The file size of the reports in each individual AWS account from which data is sourced;
 - The number of AWS Accounts from which data is sourced;
