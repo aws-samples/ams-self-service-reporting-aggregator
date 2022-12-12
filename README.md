@@ -89,6 +89,28 @@ To get started querying aggregated data, from the Athena Console in the report a
 
 ![SSR Saved Athena Queries](images/saved-queries.png)
 
+## How much does this cost?
+
+The cost to operate this package is based on a number of factors that are unique to your AWS environment, therefore they cannot be estimated in this readme file. For example:
+
+- The file size of the reports in each individual AWS account from which data is sourced;
+- The number of AWS Accounts from which data is sourced;
+- The amount of data transferred between AWS accounts;
+- The amount of data processed by Glue Crawlers in the Aggregator account;
+- The amount of data stored in the Aggregator account;
+- The amount of data that Athena processes when executing SQL queries on aggregated data;
+- The number of times you use Athena to query aggregated data.
+
+In November 2022 this package was deployed in a development environment consisting of 8x AWS accounts. The total AWS charges (across all 8x AWS accounts) for this package was less than $10 USD for the month.
+
+**🚨 Your experience will differ, therefore you must estimate cost before deploying this package in your environment.**
+
+### Tips to optimize the cost of this package
+
+- You can minimize storage costs by deleting or archiving unused reports with [Amazon S3 lifecycle configurations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the Aggregator account.
+- You can reduce AWS Glue costs by reducing the frequency at which Glue Crawlers crawl new data.
+- This package aggregates 4x AMS Self-Service Reporting reports. You can modify this solution to disable the aggregation of reports that you do not intend to consume.
+
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
