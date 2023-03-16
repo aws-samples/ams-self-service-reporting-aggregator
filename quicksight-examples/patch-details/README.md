@@ -1,7 +1,6 @@
 # Example Dashboard - Patch Details
 
-This readme file describes how to create a QuickSight Analysis to visualize AMS Patch Reports and gain useful insights about patch compliance in your organization. The dashboard can be built after deploying the Self Service Aggregator solution and creating a Data Source in Amazon QuickSight that connects to the
-`ams-report-aggregator-workgroup` in Amazon Athena.
+This readme file describes how to create a QuickSight Analysis to visualize AMS Patch Reports and gain useful insights about patch compliance in your organization. The analysis can be deployed after deploying the Self Service Aggregator solution.
 
 **N.B. Amazon QuickSight comes with additional charges, and may require you to enter into a subscription. You must, therefore, manually deploy the dashboard after considering QuickSight pricing [at this url](https://aws.amazon.com/quicksight/pricing/).**
 
@@ -11,7 +10,7 @@ This readme assumes you have some familiarity with Amazon QuickSight.
 
 ## Preview
 
-Thes following screenshots were taken from QuickSight in order to provide examples of the visualizations that are available once you have deployed them into your account.
+The following screenshots were taken from QuickSight in order to provide examples of the visualizations that are available once you have deployed this sample code.
 
 ![Analysis Preview](images/000-preview.png)
 
@@ -54,7 +53,7 @@ Thes following screenshots were taken from QuickSight in order to provide exampl
 
 ## Part 2 of 3, Edit `skeleton.json`
 
-`skeleton.json` is a file that describes how your QuickSight report will look and feel, as well as the underlying data set to use when building views. You can use `skeleton.json` as an example when building your own QuickSight analysis later on. You can find `skeleton.json` in this repository, and at this URL
+`skeleton.json` is a file that describes how your QuickSight report will look and feel, as well as the underlying data used to visualize the Analysis. You can use `skeleton.json` as an example when building your own QuickSight analysis later on. You can find `skeleton.json` in this repository at this URL
 [https://github.com/aws-samples/ams-self-service-reporting-aggregator/blob/main/quicksight-examples/patch-details/skeleton.json](https://github.com/aws-samples/ams-self-service-reporting-aggregator/blob/main/quicksight-examples/patch-details/skeleton.json)
 
 ![skeleton.json replace values](images/201-values-to-replace.png)
@@ -75,13 +74,13 @@ Thes following screenshots were taken from QuickSight in order to provide exampl
 
 ## Part 3 of 3, Creating the template in QuickSight
 
-Using the [AWS Command Line Interface (CLI)](https://aws.amazon.com/cli/), run the following command. This command assumes you have adequate QuickSight permissions.
+Using the [AWS Command Line Interface (CLI)](https://aws.amazon.com/cli/), run the following command. This command assumes you have adequate QuickSight permissions to execute the [CreateAnalysis API](https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CreateAnalysis.html). Replace `file://./skeleton.json` with the correct path to the `skeleton.json` file you edited during Step 2.
 
 `aws quicksight create-analysis --cli-input-json file://./skeleton.json`
 
 You can monitor your progress with this command
 
-`aws quicksight list-analyses --aws-account-id REPLACEME`
+`aws quicksight list-analyses --aws-account-id REPLACE_ME`
 
 After the template has been deployed, a new analysis will be visible to the Principal you provided in the `Permissions` step above. You are free to edit this example as you see fit. You may wish to change the graphs, and visualizations (or add new ones).
 
