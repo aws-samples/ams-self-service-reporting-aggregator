@@ -89,6 +89,12 @@ To get started querying aggregated data, from the Athena Console in the report a
 
 ![SSR Saved Athena Queries](images/saved-queries.png)
 
+### Visualizing the aggregated data
+
+The `quicksight-examples/patch-details` directory within this repository contains an example visualization of AMS Patch Reports using Amazon Quicksight, and has instructions on how you can deploy the example. Amazon QuickSight comes with additional charges, and may require you to enter into a subscription. You must, therefore, manually deploy the dashboard after considering QuickSight pricing [at this url](https://aws.amazon.com/quicksight/pricing/).
+
+![Visualization](quicksight-examples/patch-details/images/000-preview.png)
+
 ## How much does this cost?
 
 The cost to operate this package is based on a number of factors that are unique to your AWS environment, therefore charges cannot be estimated in this readme file. The following factors will directly contribute to the cost of operating this package:

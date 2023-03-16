@@ -1,0 +1,3015 @@
+{
+  "AwsAccountId": "REPLACEME",
+  "AnalysisId": "REPLACEME",
+  "Name": "REPLACEME",
+  "Permissions": [
+    {
+      "Actions": [
+        "quicksight:RestoreAnalysis",
+        "quicksight:UpdateAnalysisPermissions",
+        "quicksight:DeleteAnalysis",
+        "quicksight:DescribeAnalysisPermissions",
+        "quicksight:QueryAnalysis",
+        "quicksight:DescribeAnalysis",
+        "quicksight:UpdateAnalysis"
+      ],
+      "Principal": "arn:aws:quicksight:REPLACE_ME_WITH_AWS_REGION:REDACTED:user/default/THIS_SHOULD_BE_AN_ADMIN"
+    }
+  ],
+  "Definition": {
+    "DataSetIdentifierDeclarations": [
+      {
+        "Identifier": "amsaggregatorpatchdetails",
+        "DataSetArn": "arn:aws:quicksight:REPLACE_ME_WITH_AWS_REGION:REDACTED:dataset/REDACTED"
+      }
+    ],
+    "Sheets": [
+      {
+        "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+        "Title": "Summary",
+        "Name": "Summary",
+        "ParameterControls": [
+          {
+            "DateTimePicker": {
+              "ParameterControlId": "ca517a84-a54e-47da-b8aa-ee08524ef4ef",
+              "Title": "Filter all visuals by this Report Date",
+              "SourceParameterName": "ReportDate",
+              "DisplayOptions": {
+                "TitleOptions": {
+                  "Visibility": "VISIBLE",
+                  "FontConfiguration": {
+                    "FontSize": {
+                      "Relative": "EXTRA_LARGE"
+                    }
+                  }
+                },
+                "DateTimeFormat": "YYYY-MM-DD"
+              }
+            }
+          }
+        ],
+        "Visuals": [
+          {
+            "BarChartVisual": {
+              "VisualId": "d0f56b72-7282-4d89-9cdb-ecbabf387262",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Linux Instances with aá</inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">\n    <b>Critical Severity</b>\n  </inline>\n  <inline font-size=\"20px\">áPatch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-subtitle>\n  For Linux-based operating system types that report a severity level for patches, Patch Manager uses the severity level reported by the software publisher for the update notice or individual patch. Patch Manager doesn't derive severity levels from third-party sources, such as theá\n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Common Vulnerability</a>\n  á\n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Scoring System</a>\n  á(CVSS), or from metrics released by theá\n  <a href=\"https://nvd.nist.gov/vuln\" target=\"_blank\">Nationalá</a>\n  <a href=\"https://nvd.nist.gov/vuln\" target=\"_blank\">Vulnerability Database</a>\n  á(NVD).\n  <br/>\n  <br/>\n  <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html\" target=\"_blank\">https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html</a>\n</visual-subtitle>"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "mw_covered_flag"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "VERTICAL",
+                "BarsArrangement": "CLUSTERED",
+                "VisualPalette": {
+                  "ColorMap": [
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                        "FieldValue": "NOT_COVERED"
+                      },
+                      "Color": "#951C1E"
+                    },
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                        "FieldValue": "COVERED"
+                      },
+                      "Color": "#F6AA54"
+                    }
+                  ]
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "280660f1-2b9b-4af7-b871-77826a9015a1",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Linux Instances with aá</inline>\n  <inline color=\"#ff9e00\" font-size=\"20px\">\n    <b>High Severity</b>\n  </inline>\n  <inline font-size=\"20px\">áPatch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-subtitle>\n  For Linux-based operating system types that report a severity level for patches, Patch Manager uses the severity level reported by the software publisher for the update notice or individual patch. Patch Manager doesn't derive severity levels from third-party sources, such as theá\n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Common Vulnerability</a>\n  á\n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Scoring System</a>\n  á(CVSS), or from metrics released by theá\n  <a href=\"https://nvd.nist.gov/vuln\" target=\"_blank\">National Vulnerability Database</a>\n  á(NVD).\n  <br/>\n  <br/>\n  <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html\" target=\"_blank\">https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html</a>\n</visual-subtitle>"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "mw_covered_flag"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "VERTICAL",
+                "BarsArrangement": "CLUSTERED",
+                "VisualPalette": {
+                  "ColorMap": [
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                        "FieldValue": "NOT_COVERED"
+                      },
+                      "Color": "#951C1E"
+                    },
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                        "FieldValue": "COVERED"
+                      },
+                      "Color": "#F6AA54"
+                    }
+                  ]
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "3a523004-fedb-4bed-8c29-b8a3edc9bfb1",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Windows Instances with aá</inline>\n  <inline color=\"#ff9e00\" font-size=\"20px\">\n    <b>High Severity</b>\n  </inline>\n  <inline font-size=\"20px\">áPatch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-subtitle>\n  A vulnerability whose exploitation could result in compromise of the confidentiality, integrity, or availability of user data, or of the integrity or availability of processing resources. Microsoft recommends that customers apply Important updates at the earliest opportunity.á\n  <br/>\n  <br/>\n  <a href=\"https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system\" target=\"_blank\">https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system</a>\n</visual-subtitle>"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "mw_covered_flag"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "VERTICAL",
+                "BarsArrangement": "CLUSTERED",
+                "VisualPalette": {
+                  "ColorMap": [
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                        "FieldValue": "NOT_COVERED"
+                      },
+                      "Color": "#951C1E"
+                    },
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                        "FieldValue": "COVERED"
+                      },
+                      "Color": "#F6AA54"
+                    }
+                  ]
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "PieChartVisual": {
+              "VisualId": "f9763f35-5f3f-45e8-adaf-4f0766ac082b",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">EC2 Instances covered by a patching maintenance window (all accounts)</inline>\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-subtitle>\n  <inline color=\"#951c1e\">\n    <b>\n      <i>Not Covered</i>\n    </b>\n  </inline>\n  <i>á= EC2 instances that are not configured for patching, and will not be patched</i>\n</visual-subtitle>"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PieChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132434245",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "mw_covered_flag"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "DonutOptions": {
+                  "ArcOptions": {
+                    "ArcThickness": "WHOLE"
+                  }
+                },
+                "Legend": {
+                  "Visibility": "HIDDEN",
+                  "Title": {
+                    "CustomLabel": "Patch Maintenance Window Status"
+                  },
+                  "Width": "280px"
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "MeasureLabelVisibility": "VISIBLE",
+                  "Position": "OUTSIDE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132434245",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "VisualPalette": {
+                  "ColorMap": [
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132434245",
+                        "FieldValue": "NOT_COVERED"
+                      },
+                      "Color": "#951C1E"
+                    },
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132434245",
+                        "FieldValue": "COVERED"
+                      },
+                      "Color": "#23D194"
+                    }
+                  ]
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "e19c2e07-3814-4f96-b03f-9d8b20557f9c",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">EC2 Instance patching maintenance window coverage (grouped by AWS Account)</inline>\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-subtitle>\n  <inline color=\"#951c1e\">\n    <b>\n      <i>Not Covered</i>\n    </b>\n  </inline>\n  <i>á= EC2 instances that are not configured for patching, and will not be patched</i>\n</visual-subtitle>"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660130459780",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "account_name"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "CategoricalMeasureField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.1.1660130464344",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "mw_covered_flag"
+                          },
+                          "AggregationFunction": "COUNT"
+                        }
+                      }
+                    ],
+                    "Colors": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.2.1660130465831",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "mw_covered_flag"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660130459780",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "VERTICAL",
+                "BarsArrangement": "STACKED",
+                "VisualPalette": {
+                  "ChartColor": "#DE3B00",
+                  "ColorMap": [
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.2.1660130465831",
+                        "FieldValue": "COVERED"
+                      },
+                      "Color": "#23D194"
+                    },
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.2.1660130465831",
+                        "FieldValue": "NOT_COVERED"
+                      },
+                      "Color": "#951C1E"
+                    }
+                  ]
+                },
+                "CategoryAxis": {
+                  "ScrollbarOptions": {
+                    "VisibleRange": {
+                      "PercentRange": {
+                        "From": 0.0,
+                        "To": 100.0
+                      }
+                    }
+                  },
+                  "AxisOffset": "106px"
+                },
+                "Legend": {
+                  "Visibility": "VISIBLE",
+                  "Title": {
+                    "Visibility": "VISIBLE",
+                    "CustomLabel": "Patch Maintenance Window Status"
+                  },
+                  "Width": "307px"
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.2.1660130465831",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.2.1660130465831",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660130459780",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "c6feff77-bd90-45c3-9aea-070c6e1b1a1b",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Windowsá</inline>\n  <inline font-size=\"20px\"/>\n  <inline font-size=\"20px\">Instances with aá</inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">\n    <b>Critical Severity</b>\n  </inline>\n  <inline font-size=\"20px\">áPatch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-subtitle>\n  A vulnerability whose exploitation could allow code executioná\n  <b>\n    <i>withoutá</i>\n  </b>\n  user interaction. These scenarios include self-propagating malware (e.g. network worms), or unavoidable common use scenarios where code execution occursáwithoutáwarnings or prompts. This could mean browsing to a web page or opening email. Microsoft recommends that customers apply Critical updates immediately.\n  <br/>\n  <br/>\n  <a href=\"https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system\" target=\"_blank\">https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system</a>\n</visual-subtitle>"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "mw_covered_flag"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "VERTICAL",
+                "BarsArrangement": "CLUSTERED",
+                "VisualPalette": {
+                  "ColorMap": [
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                        "FieldValue": "NOT_COVERED"
+                      },
+                      "Color": "#951C1E"
+                    },
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                        "FieldValue": "COVERED"
+                      },
+                      "Color": "#F6AA54"
+                    }
+                  ]
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.0.1660132843941",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "PivotTableVisual": {
+              "VisualId": "a9760414-cb4c-4bd8-a450-2de4f9340870",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  <inline color=\"#000000\" font-size=\"20px\">Please start theseá</inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">stopped EC2 instances</inline>\n  <inline color=\"#000000\" font-size=\"20px\">áthat are scheduled for patching within the next 72 hours.</inline>\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-subtitle>\n  <inline color=\"#23d194\">\n    <b>\n      <i>\"No Data\"</i>\n    </b>\n  </inline>\n  <i>á= There are no stopped instances that are scheduled for patching within the next 72 hours. Only running instances can be patched, stopped instances will not be auto-started.</i>\n</visual-subtitle>"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PivotTableAggregatedFieldWells": {
+                    "Rows": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_state.5.1660134446648",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_state"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.1.1660134342320",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "aws_account_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.0.1660134338059",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_name.2.1660134402860",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_name"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_execution_time.3.1660134413867",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "window_next_execution_time"
+                          }
+                        }
+                      },
+                      {
+                        "NumericalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.4.1660134422818",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_total"
+                          }
+                        }
+                      }
+                    ],
+                    "Columns": [],
+                    "Values": []
+                  }
+                },
+                "SortConfiguration": {
+                  "FieldSortOptions": []
+                },
+                "TableOptions": {
+                  "ColumnHeaderStyle": {
+                    "TextWrap": "NONE"
+                  },
+                  "CellStyle": {
+                    "TextWrap": "NONE"
+                  }
+                },
+                "FieldOptions": {
+                  "SelectedFieldOptions": [
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_state.5.1660134446648",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.1.1660134342320",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.0.1660134338059",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_name.2.1660134402860",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_execution_time.3.1660134413867",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.4.1660134422818",
+                      "Visibility": "VISIBLE"
+                    }
+                  ],
+                  "DataPathOptions": []
+                }
+              },
+              "Actions": []
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "dffbaeec-a5b9-4793-8343-f3efd83327dd",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Patch maintenance window coverage over time</inline>\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-subtitle>A Key Performance Indicator for patch compliance is the % of EC2 Instances that are covered by a patching maintenance window. Monitor this metric over time to understand if you are taking sufficient action to improve patch compliance in your organization.</visual-subtitle>"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "DateDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.reportdate.2.1660256969328",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "reportdate"
+                          },
+                          "HierarchyId": "655276ed-465f-45b2-83ab-9bc020c20e89.reportdate.2.1660256969328"
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "CategoricalMeasureField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.0.1660256889078",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_id"
+                          },
+                          "AggregationFunction": "COUNT"
+                        }
+                      }
+                    ],
+                    "Colors": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.2.1660256895360",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "mw_covered_flag"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.reportdate.2.1660256969328",
+                        "Direction": "ASC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "VERTICAL",
+                "BarsArrangement": "STACKED_PERCENT",
+                "VisualPalette": {
+                  "ChartColor": "#23D194",
+                  "ColorMap": [
+                    {
+                      "Element": {
+                        "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.2.1660256895360",
+                        "FieldValue": "NOT_COVERED"
+                      },
+                      "Color": "#951C1E"
+                    }
+                  ]
+                },
+                "CategoryAxis": {
+                  "TickLabelOptions": {
+                    "LabelOptions": {
+                      "Visibility": "VISIBLE"
+                    }
+                  }
+                },
+                "Legend": {
+                  "Title": {
+                    "CustomLabel": "Patch Maintenance Window Status"
+                  },
+                  "Width": "269px"
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.reportdate.2.1660256969328",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.0.1660256889078",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.2.1660256895360",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": [
+                {
+                  "DateTimeHierarchy": {
+                    "HierarchyId": "655276ed-465f-45b2-83ab-9bc020c20e89.reportdate.2.1660256969328"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "ca517a84-a54e-47da-b8aa-ee08524ef4ef",
+                    "ElementType": "PARAMETER_CONTROL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 0,
+                    "RowSpan": 3
+                  },
+                  {
+                    "ElementId": "a9760414-cb4c-4bd8-a450-2de4f9340870",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 3,
+                    "RowSpan": 7
+                  },
+                  {
+                    "ElementId": "e19c2e07-3814-4f96-b03f-9d8b20557f9c",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 10,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "dffbaeec-a5b9-4793-8343-f3efd83327dd",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 22,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "f9763f35-5f3f-45e8-adaf-4f0766ac082b",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 34,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "d0f56b72-7282-4d89-9cdb-ecbabf387262",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 46,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "280660f1-2b9b-4af7-b871-77826a9015a1",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 58,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "c6feff77-bd90-45c3-9aea-070c6e1b1a1b",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 70,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "3a523004-fedb-4bed-8c29-b8a3edc9bfb1",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 82,
+                    "RowSpan": 12
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "SheetControlLayouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": []
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      },
+      {
+        "SheetId": "d4ea0f9d-2992-4694-97e2-7d89373a37d1",
+        "Title": "Recent Patching Activities",
+        "Name": "Recently Completed Patching",
+        "Visuals": [
+          {
+            "PivotTableVisual": {
+              "VisualId": "58ec6b53-2f5a-45ef-a756-e7baf3a8ccfe",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Patched in the last 7 days withá</inline>\n  <inline color=\"#23d194\" font-size=\"20px\">no outstanding patches</inline>\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-subtitle>Instances that were recently patched, and have no outstanding patches, generally indicates that a successful patch activity occurred.</visual-subtitle>"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PivotTableAggregatedFieldWells": {
+                    "Rows": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660135603781",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "aws_account_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_platform_type.6.1660136017292",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_platform_type"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_platform_name.5.1660136014310",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_platform_name"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.1.1660135795823",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_name.6.1660136183188",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_name"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.last_execution_window.4.1660135832616",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "last_execution_window"
+                          }
+                        }
+                      }
+                    ],
+                    "Columns": [],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.2.1660135806292",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_total"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "FieldSortOptions": []
+                },
+                "TableOptions": {
+                  "ColumnHeaderStyle": {
+                    "TextWrap": "NONE"
+                  },
+                  "CellStyle": {
+                    "TextWrap": "NONE"
+                  }
+                },
+                "FieldOptions": {
+                  "SelectedFieldOptions": [
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660135603781",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_platform_type.6.1660136017292",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_platform_name.5.1660136014310",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.1.1660135795823",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_name.6.1660136183188",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.last_execution_window.4.1660135832616",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.2.1660135806292",
+                      "Visibility": "VISIBLE"
+                    }
+                  ],
+                  "DataPathOptions": [
+                    {
+                      "DataPathList": [
+                        {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.2.1660135806292",
+                          "FieldValue": "noncompliant_total"
+                        }
+                      ],
+                      "Width": "180px"
+                    }
+                  ]
+                }
+              },
+              "Actions": []
+            }
+          },
+          {
+            "PivotTableVisual": {
+              "VisualId": "86ea53fd-3585-4922-ad26-58f3fcd0c22f",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Patched in the last 7 days with</inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">á&gt; 0 outstanding patches</inline>\n</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-subtitle>\n  Instances that were recently patched, but have outstanding patches, may indicate:\n  <br/>\n  <ul>\n    <li>a failure during patching;</li>\n    <li>a patch was released after the instance was patched;</li>\n    <li>a patch was previously excluded by a patch baseline, but that patch is no longer excluded.</li>\n  </ul>\n</visual-subtitle>"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PivotTableAggregatedFieldWells": {
+                    "Rows": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660135603781",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "aws_account_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_platform_type.6.1660136017292",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_platform_type"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_platform_name.5.1660136014310",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_platform_name"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.1.1660135795823",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_name.6.1660136170279",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_name"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.last_execution_window.4.1660135832616",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "last_execution_window"
+                          }
+                        }
+                      }
+                    ],
+                    "Columns": [],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.2.1660135806292",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_total"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "FieldSortOptions": []
+                },
+                "TableOptions": {
+                  "ColumnHeaderStyle": {
+                    "TextWrap": "NONE"
+                  },
+                  "CellStyle": {
+                    "TextWrap": "NONE",
+                    "Height": 25
+                  }
+                },
+                "FieldOptions": {
+                  "SelectedFieldOptions": [
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660135603781",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_platform_type.6.1660136017292",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_platform_name.5.1660136014310",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.1.1660135795823",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_name.6.1660136170279",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.last_execution_window.4.1660135832616",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.2.1660135806292",
+                      "Visibility": "VISIBLE"
+                    }
+                  ],
+                  "DataPathOptions": [
+                    {
+                      "DataPathList": [
+                        {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.2.1660135806292",
+                          "FieldValue": "noncompliant_total"
+                        }
+                      ],
+                      "Width": "180px"
+                    }
+                  ]
+                }
+              },
+              "Actions": []
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "86ea53fd-3585-4922-ad26-58f3fcd0c22f",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 34,
+                    "RowIndex": 0,
+                    "RowSpan": 20
+                  },
+                  {
+                    "ElementId": "58ec6b53-2f5a-45ef-a756-e7baf3a8ccfe",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 34,
+                    "RowIndex": 20,
+                    "RowSpan": 20
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      },
+      {
+        "SheetId": "fe49ee10-b259-4e8a-959a-603f855587ec",
+        "Title": "Instances with upcoming Maintenance Windows",
+        "Description": "Note that `stopped` instances are unable to be patched - they must be started to be patched.",
+        "Name": "Upcoming Patching",
+        "Visuals": [
+          {
+            "PivotTableVisual": {
+              "VisualId": "114bc4e9-8972-4a05-8d27-472ddedbc252",
+              "Title": {
+                "Visibility": "HIDDEN"
+              },
+              "Subtitle": {
+                "Visibility": "HIDDEN"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PivotTableAggregatedFieldWells": {
+                    "Rows": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_exec_yyyy.6.1660179507797",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "window_next_exec_yyyy"
+                          },
+                          "FormatConfiguration": {}
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_exec_mm.7.1660179511864",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "window_next_exec_mm"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_exec_d.8.1660179516662",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "window_next_exec_d"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_exec_hhmi.9.1660179524374",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "window_next_exec_hhmi"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.2.1660130934186",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "aws_account_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.1.1660130928601",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_name.5.1660179406119",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_name"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_state.3.1660130978084",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_state"
+                          }
+                        }
+                      }
+                    ],
+                    "Columns": [],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.4.1660135005600",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_total"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "FieldSortOptions": []
+                },
+                "TableOptions": {
+                  "ColumnHeaderStyle": {
+                    "TextWrap": "WRAP",
+                    "Height": 25
+                  },
+                  "CellStyle": {
+                    "TextWrap": "NONE"
+                  }
+                },
+                "FieldOptions": {
+                  "SelectedFieldOptions": [
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_exec_yyyy.6.1660179507797",
+                      "CustomLabel": "Window Year",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_exec_mm.7.1660179511864",
+                      "CustomLabel": "Window Month",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_exec_d.8.1660179516662",
+                      "CustomLabel": "Window Day",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_exec_hhmi.9.1660179524374",
+                      "CustomLabel": "Window Time",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.2.1660130934186",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.1.1660130928601",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_name.5.1660179406119",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_state.3.1660130978084",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.4.1660135005600",
+                      "Visibility": "VISIBLE"
+                    }
+                  ],
+                  "DataPathOptions": [
+                    {
+                      "DataPathList": [
+                        {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.4.1660135005600",
+                          "FieldValue": "noncompliant_total"
+                        }
+                      ],
+                      "Width": "238px"
+                    }
+                  ]
+                }
+              },
+              "Actions": []
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "114bc4e9-8972-4a05-8d27-472ddedbc252",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 0,
+                    "RowSpan": 19
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      },
+      {
+        "SheetId": "3048d983-402a-4c06-a6fe-cc25c24ea572",
+        "Title": "EC2 Instances that are not covered by a patching maintenance window",
+        "Name": "Instances without maintenance windows",
+        "Visuals": [
+          {
+            "PivotTableVisual": {
+              "VisualId": "50ac5610-d706-43b8-bf8d-b48e524d53c2",
+              "Title": {
+                "Visibility": "HIDDEN",
+                "FormatText": {
+                  "RichText": "<visual-title>EC2 Instances without patching Maintenance Windows</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "HIDDEN"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PivotTableAggregatedFieldWells": {
+                    "Rows": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660130688495",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "aws_account_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.1.1660130695096",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "mw_covered_flag"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.2.1660130700100",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.last_execution_window.5.1660130784180",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "last_execution_window"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_execution_time.6.1660179719585",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "window_next_execution_time"
+                          }
+                        }
+                      }
+                    ],
+                    "Columns": [],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.3.1660130729818",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_total"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      },
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.compliant_total.4.1660130731785",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "compliant_total"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "FieldSortOptions": []
+                },
+                "TableOptions": {
+                  "ColumnHeaderStyle": {
+                    "TextWrap": "NONE"
+                  },
+                  "CellStyle": {
+                    "TextWrap": "NONE"
+                  }
+                },
+                "FieldOptions": {
+                  "SelectedFieldOptions": [
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660130688495",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.mw_covered_flag.1.1660130695096",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.2.1660130700100",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.last_execution_window.5.1660130784180",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_execution_time.6.1660179719585",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.3.1660130729818",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.compliant_total.4.1660130731785",
+                      "Visibility": "VISIBLE"
+                    }
+                  ],
+                  "DataPathOptions": [
+                    {
+                      "DataPathList": [
+                        {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.3.1660130729818",
+                          "FieldValue": "noncompliant_total"
+                        }
+                      ],
+                      "Width": "219px"
+                    },
+                    {
+                      "DataPathList": [
+                        {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.compliant_total.4.1660130731785",
+                          "FieldValue": "compliant_total"
+                        }
+                      ],
+                      "Width": "214px"
+                    }
+                  ]
+                }
+              },
+              "Actions": []
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "50ac5610-d706-43b8-bf8d-b48e524d53c2",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 0,
+                    "RowSpan": 21
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      },
+      {
+        "SheetId": "aea2565d-c9a1-4038-8edb-48b63b6dff9a",
+        "Title": "Instances with available patches",
+        "Description": "A \"Non-Compliant\" EC2 instance is any instance with an available patch count > 0",
+        "Name": "Instances with available patches",
+        "Visuals": [
+          {
+            "TableVisual": {
+              "VisualId": "ee42c889-a816-4379-acb1-1e56ae397cf9",
+              "Title": {
+                "Visibility": "HIDDEN",
+                "FormatText": {
+                  "RichText": "<visual-title>Instances with available patches</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "HIDDEN"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "TableAggregatedFieldWells": {
+                    "GroupBy": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660131131685",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "aws_account_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.1.1660131135753",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_id"
+                          }
+                        }
+                      },
+                      {
+                        "NumericalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_critical.2.1660131140538",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_critical"
+                          }
+                        }
+                      },
+                      {
+                        "NumericalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_high.6.1660131152255",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_high"
+                          }
+                        }
+                      },
+                      {
+                        "NumericalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_medium.4.1660131146806",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_medium"
+                          }
+                        }
+                      },
+                      {
+                        "NumericalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_low.5.1660131149929",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_low"
+                          }
+                        }
+                      },
+                      {
+                        "NumericalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_informational.3.1660131144597",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_informational"
+                          }
+                        }
+                      },
+                      {
+                        "NumericalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_unspecified.7.1660131161706",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_unspecified"
+                          }
+                        }
+                      },
+                      {
+                        "NumericalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.noncompliant_total.8.1660131163752",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "noncompliant_total"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.last_execution_window.9.1660131170995",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "last_execution_window"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_execution_time.10.1660131175732",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "window_next_execution_time"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": []
+                  }
+                },
+                "SortConfiguration": {}
+              },
+              "Actions": []
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "ee42c889-a816-4379-acb1-1e56ae397cf9",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 36,
+                    "RowIndex": 0,
+                    "RowSpan": 21
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      },
+      {
+        "SheetId": "7f70f71c-09bd-450c-b24e-bca62fb4d6eb",
+        "Title": "Patch Groups deployed into accounts",
+        "Description": "The following patch groups have been deployed into the listed AWS accounts",
+        "Name": "Account Patch Group Configuration",
+        "Visuals": [
+          {
+            "PivotTableVisual": {
+              "VisualId": "f16a2644-ad7e-41e1-b946-c495fcbe0aee",
+              "Title": {
+                "Visibility": "HIDDEN"
+              },
+              "Subtitle": {
+                "Visibility": "HIDDEN"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PivotTableAggregatedFieldWells": {
+                    "Rows": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660132090355",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "aws_account_id"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_patch_group.1.1660132101870",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_patch_group"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_execution_time.2.1660132112656",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "window_next_execution_time"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_duration.4.1660136331047",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "window_duration"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.3.1660132180082",
+                          "Column": {
+                            "DataSetIdentifier": "amsaggregatorpatchdetails",
+                            "ColumnName": "instance_id"
+                          }
+                        }
+                      }
+                    ],
+                    "Columns": [],
+                    "Values": []
+                  }
+                },
+                "SortConfiguration": {
+                  "FieldSortOptions": []
+                },
+                "TableOptions": {
+                  "ColumnHeaderStyle": {
+                    "TextWrap": "NONE"
+                  },
+                  "CellStyle": {
+                    "TextWrap": "NONE"
+                  }
+                },
+                "FieldOptions": {
+                  "SelectedFieldOptions": [
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.aws_account_id.0.1660132090355",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_patch_group.1.1660132101870",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_next_execution_time.2.1660132112656",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.window_duration.4.1660136331047",
+                      "Visibility": "VISIBLE"
+                    },
+                    {
+                      "FieldId": "655276ed-465f-45b2-83ab-9bc020c20e89.instance_id.3.1660132180082",
+                      "Visibility": "VISIBLE"
+                    }
+                  ],
+                  "DataPathOptions": [
+                    {
+                      "DataPathList": [],
+                      "Width": "149px"
+                    }
+                  ]
+                }
+              },
+              "Actions": []
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "f16a2644-ad7e-41e1-b946-c495fcbe0aee",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 35,
+                    "RowIndex": 0,
+                    "RowSpan": 21
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      }
+    ],
+    "CalculatedFields": [
+      {
+        "DataSetIdentifier": "amsaggregatorpatchdetails",
+        "Name": "parsedLastMWDate",
+        "Expression": "ifelse(isNotNull({last_execution_window}), parseDate({last_execution_window},\"yyyy-MM-dd\"), NULL)"
+      },
+      {
+        "DataSetIdentifier": "amsaggregatorpatchdetails",
+        "Name": "parsedNextMWDate",
+        "Expression": "ifelse(isNotNull({window_next_execution_time}), parseDate({window_next_execution_time},\"yyyy-MM-dd\"), NULL)"
+      }
+    ],
+    "ParameterDeclarations": [
+      {
+        "DateTimeParameterDeclaration": {
+          "Name": "ReportDate",
+          "DefaultValues": {
+            "StaticValues": [],
+            "RollingDate": {
+              "Expression": "truncDate('DD', now())"
+            }
+          },
+          "TimeGranularity": "DAY"
+        }
+      }
+    ],
+    "FilterGroups": [
+      {
+        "FilterGroupId": "d0b62665-c8ba-4b6b-978b-100fa852ff15",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "7fd78e00-eb78-4ee9-9c21-ad110597daa1",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["e19c2e07-3814-4f96-b03f-9d8b20557f9c"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "dac7ef83-1e33-4ea8-bbab-60bf95a7361f",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "aedda406-5b70-4815-86e5-7b916d37c6c0",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["f9763f35-5f3f-45e8-adaf-4f0766ac082b"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "be0d8094-11b1-4d32-ab1f-b5da3c845dc4",
+        "Filters": [
+          {
+            "NumericRangeFilter": {
+              "FilterId": "3dcf7bca-ac60-489c-9605-90c12262454c",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "noncompliant_critical"
+              },
+              "IncludeMinimum": false,
+              "IncludeMaximum": false,
+              "RangeMinimum": {
+                "StaticValue": 0.0
+              },
+              "NullOption": "ALL_VALUES"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["c6feff77-bd90-45c3-9aea-070c6e1b1a1b"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "c6f2e546-6d7f-4888-834a-8c09b431d10d",
+        "Filters": [
+          {
+            "NumericRangeFilter": {
+              "FilterId": "a33ac81b-561b-46b6-b80e-0ca78f5a51d3",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "noncompliant_high"
+              },
+              "IncludeMinimum": false,
+              "IncludeMaximum": false,
+              "RangeMinimum": {
+                "StaticValue": 0.0
+              },
+              "NullOption": "ALL_VALUES"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["3a523004-fedb-4bed-8c29-b8a3edc9bfb1"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "6fa6aed0-6875-4f9e-a6c3-89d875989dc5",
+        "Filters": [
+          {
+            "CategoryFilter": {
+              "FilterId": "5f51be81-a282-405b-87dc-272852e23835",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "instance_state"
+              },
+              "Configuration": {
+                "FilterListConfiguration": {
+                  "MatchOperator": "CONTAINS",
+                  "CategoryValues": ["STOPPED"]
+                }
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["a9760414-cb4c-4bd8-a450-2de4f9340870"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "25c40c83-9a51-4734-9e78-26c87e7dd4da",
+        "Filters": [
+          {
+            "RelativeDatesFilter": {
+              "FilterId": "2d921429-3476-45da-830b-f46bd729f7cd",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "parsedNextMWDate"
+              },
+              "AnchorDateConfiguration": {
+                "AnchorOption": "NOW"
+              },
+              "MinimumGranularity": "HOUR",
+              "TimeGranularity": "HOUR",
+              "RelativeDateType": "NEXT",
+              "RelativeDateValue": 72,
+              "NullOption": "NON_NULLS_ONLY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["a9760414-cb4c-4bd8-a450-2de4f9340870"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "d9ef65d7-ce5a-4591-8b5a-0b332681d0dd",
+        "Filters": [
+          {
+            "NumericRangeFilter": {
+              "FilterId": "351687f8-a782-4e58-b884-d8070a53c4a0",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "noncompliant_high"
+              },
+              "IncludeMinimum": false,
+              "IncludeMaximum": false,
+              "RangeMinimum": {
+                "StaticValue": 0.0
+              },
+              "NullOption": "ALL_VALUES"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["280660f1-2b9b-4af7-b871-77826a9015a1"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "285cf38f-460e-4fc7-96a9-9df51fcb3866",
+        "Filters": [
+          {
+            "NumericRangeFilter": {
+              "FilterId": "c5cb7cbf-3681-4ce2-b2c4-bf5919ad3557",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "noncompliant_critical"
+              },
+              "IncludeMinimum": false,
+              "IncludeMaximum": false,
+              "RangeMinimum": {
+                "StaticValue": 0.0
+              },
+              "NullOption": "ALL_VALUES"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["d0f56b72-7282-4d89-9cdb-ecbabf387262"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "dfe0032c-bff2-4519-9d74-75fe1dcaa102",
+        "Filters": [
+          {
+            "CategoryFilter": {
+              "FilterId": "bac57dc3-f171-437f-8353-c30872d5064a",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "instance_platform_type"
+              },
+              "Configuration": {
+                "FilterListConfiguration": {
+                  "MatchOperator": "CONTAINS",
+                  "CategoryValues": ["Windows"]
+                }
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["c6feff77-bd90-45c3-9aea-070c6e1b1a1b"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "92f9ed76-1c0c-44cc-81fc-5110236dad6b",
+        "Filters": [
+          {
+            "CategoryFilter": {
+              "FilterId": "71436f0c-bc6b-4072-8f91-d93295a6ba9a",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "instance_platform_type"
+              },
+              "Configuration": {
+                "FilterListConfiguration": {
+                  "MatchOperator": "CONTAINS",
+                  "CategoryValues": ["Windows"]
+                }
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["3a523004-fedb-4bed-8c29-b8a3edc9bfb1"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "d4017625-5cf8-466e-9ab9-b40e08775c29",
+        "Filters": [
+          {
+            "CategoryFilter": {
+              "FilterId": "9e3aa8d3-fbe4-4b18-a9dd-f460b6b466db",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "instance_platform_type"
+              },
+              "Configuration": {
+                "FilterListConfiguration": {
+                  "MatchOperator": "CONTAINS",
+                  "CategoryValues": ["LINUX"]
+                }
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["d0f56b72-7282-4d89-9cdb-ecbabf387262"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "aa1e03a5-525a-45d9-b590-b44821af0a16",
+        "Filters": [
+          {
+            "CategoryFilter": {
+              "FilterId": "e7fbc8af-7ac7-4a2b-9281-40ea37540c21",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "instance_platform_type"
+              },
+              "Configuration": {
+                "FilterListConfiguration": {
+                  "MatchOperator": "CONTAINS",
+                  "CategoryValues": ["LINUX"]
+                }
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["280660f1-2b9b-4af7-b871-77826a9015a1"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "7c17f6b6-763d-46e7-ad23-3653b5c08d0c",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "c1771649-ad5b-41fd-91c5-02bcd1925f93",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["a9760414-cb4c-4bd8-a450-2de4f9340870"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "d140e08e-9877-484d-a72d-61c8bc261067",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "1ca3ffa3-7a5e-4c6f-88cf-21886db4f746",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["c6feff77-bd90-45c3-9aea-070c6e1b1a1b"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "d3e719c3-37e8-4ab0-b8a6-be3e7a8ae5dd",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "8a23db4e-0ae6-4806-8f6a-a61c85022c60",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["d0f56b72-7282-4d89-9cdb-ecbabf387262"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "a680c32e-1b32-44ca-9502-a34374156fc0",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "015ad306-bd2d-4071-8217-507232f993ec",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["280660f1-2b9b-4af7-b871-77826a9015a1"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "93e4268e-0668-4165-8377-b42ef521e194",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "828359de-2e8e-4104-80fd-9e82fe84bea2",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "bbd8247e-8851-49ed-9fd7-323b83abc694",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["3a523004-fedb-4bed-8c29-b8a3edc9bfb1"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "ac08d12a-4bd2-4d89-8efd-1af6f7576547",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "4c2180ea-66e2-4639-89b0-3272972b3cf1",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "d4ea0f9d-2992-4694-97e2-7d89373a37d1",
+                "Scope": "ALL_VISUALS"
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "4ef45ebb-1a11-495e-8ef7-ecebd8765df5",
+        "Filters": [
+          {
+            "RelativeDatesFilter": {
+              "FilterId": "be1530be-0cb3-4044-9920-93b1d8318991",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "parsedLastMWDate"
+              },
+              "AnchorDateConfiguration": {
+                "AnchorOption": "NOW"
+              },
+              "MinimumGranularity": "DAY",
+              "TimeGranularity": "DAY",
+              "RelativeDateType": "LAST",
+              "RelativeDateValue": 7,
+              "NullOption": "NON_NULLS_ONLY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "d4ea0f9d-2992-4694-97e2-7d89373a37d1",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["86ea53fd-3585-4922-ad26-58f3fcd0c22f"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "d09b010c-e6ae-4b6e-b186-db6f7e1d1992",
+        "Filters": [
+          {
+            "NumericRangeFilter": {
+              "FilterId": "eb0d188f-a38a-49d2-89ea-aa128566564c",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "noncompliant_total"
+              },
+              "IncludeMinimum": false,
+              "IncludeMaximum": false,
+              "RangeMinimum": {
+                "StaticValue": 0.0
+              },
+              "AggregationFunction": {
+                "NumericalAggregationFunction": {
+                  "SimpleNumericalAggregation": "SUM"
+                }
+              },
+              "NullOption": "ALL_VALUES"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "d4ea0f9d-2992-4694-97e2-7d89373a37d1",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["86ea53fd-3585-4922-ad26-58f3fcd0c22f"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "219d77d3-5625-4edf-a730-2a7da2a95c8c",
+        "Filters": [
+          {
+            "RelativeDatesFilter": {
+              "FilterId": "0ab6eae4-05c4-4c87-90af-8b3e7f46028f",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "parsedLastMWDate"
+              },
+              "AnchorDateConfiguration": {
+                "AnchorOption": "NOW"
+              },
+              "MinimumGranularity": "DAY",
+              "TimeGranularity": "DAY",
+              "RelativeDateType": "LAST",
+              "RelativeDateValue": 7,
+              "NullOption": "NON_NULLS_ONLY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "d4ea0f9d-2992-4694-97e2-7d89373a37d1",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["58ec6b53-2f5a-45ef-a756-e7baf3a8ccfe"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "331d7442-2345-431b-8568-51ad4ac4144f",
+        "Filters": [
+          {
+            "NumericEqualityFilter": {
+              "FilterId": "f53289b1-c23c-4c78-a763-895669659815",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "noncompliant_total"
+              },
+              "Value": 0.0,
+              "MatchOperator": "EQUALS",
+              "AggregationFunction": {
+                "NumericalAggregationFunction": {
+                  "SimpleNumericalAggregation": "SUM"
+                }
+              },
+              "NullOption": "ALL_VALUES"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "d4ea0f9d-2992-4694-97e2-7d89373a37d1",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["58ec6b53-2f5a-45ef-a756-e7baf3a8ccfe"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "8f91f68d-f476-4c19-b591-1b6a280a25dd",
+        "Filters": [
+          {
+            "CategoryFilter": {
+              "FilterId": "f0d77168-5c89-4927-ae7b-5122688f24e0",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "mw_covered_flag"
+              },
+              "Configuration": {
+                "FilterListConfiguration": {
+                  "MatchOperator": "CONTAINS",
+                  "CategoryValues": ["COVERED"]
+                }
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "fe49ee10-b259-4e8a-959a-603f855587ec",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["114bc4e9-8972-4a05-8d27-472ddedbc252"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "9d8b5f72-1130-4b5b-8d0b-a86a87147b34",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "3867c342-b4d6-429e-9f3e-09ba78befa6f",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "fe49ee10-b259-4e8a-959a-603f855587ec",
+                "Scope": "ALL_VISUALS"
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "6268213d-60f9-4c0a-80d3-f7c69dfc99be",
+        "Filters": [
+          {
+            "CategoryFilter": {
+              "FilterId": "9faaadc4-96ee-4fb1-8fe9-21b66aed36d7",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "mw_covered_flag"
+              },
+              "Configuration": {
+                "CustomFilterConfiguration": {
+                  "MatchOperator": "DOES_NOT_EQUAL",
+                  "CategoryValue": "COVERED",
+                  "NullOption": "ALL_VALUES"
+                }
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "3048d983-402a-4c06-a6fe-cc25c24ea572",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["50ac5610-d706-43b8-bf8d-b48e524d53c2"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "d770239b-c0da-4f77-8721-6a3c8ab23678",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "8bff593f-ab9a-440b-8930-65d836ce28b7",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "3048d983-402a-4c06-a6fe-cc25c24ea572",
+                "Scope": "ALL_VISUALS"
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "9a8bf241-8432-4eb2-9584-f9698e757022",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "88bfdb0d-35a8-4a16-b54f-d08eaaa54e2d",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "aea2565d-c9a1-4038-8edb-48b63b6dff9a",
+                "Scope": "ALL_VISUALS"
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "a1ac7538-79fd-45a8-923a-579dfd5ec52c",
+        "Filters": [
+          {
+            "NumericRangeFilter": {
+              "FilterId": "f42c5b37-899f-442f-ad48-6e4dea9ed439",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "noncompliant_total"
+              },
+              "IncludeMinimum": false,
+              "IncludeMaximum": false,
+              "RangeMinimum": {
+                "StaticValue": 0.0
+              },
+              "NullOption": "ALL_VALUES"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "aea2565d-c9a1-4038-8edb-48b63b6dff9a",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["ee42c889-a816-4379-acb1-1e56ae397cf9"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "626382d0-6f29-42c6-89bf-6d6b3a3ea8d1",
+        "Filters": [
+          {
+            "CategoryFilter": {
+              "FilterId": "5a148d01-2020-461b-936d-aa7a84700ee6",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "window_next_execution_time"
+              },
+              "Configuration": {
+                "FilterListConfiguration": {
+                  "MatchOperator": "DOES_NOT_CONTAIN",
+                  "CategoryValues": [""]
+                }
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "7f70f71c-09bd-450c-b24e-bca62fb4d6eb",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": ["f16a2644-ad7e-41e1-b946-c495fcbe0aee"]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "da4d6290-17a3-49b4-a13c-ebfc65e2a466",
+        "Filters": [
+          {
+            "TimeEqualityFilter": {
+              "FilterId": "19e2640d-501f-4182-9241-071af6508c5a",
+              "Column": {
+                "DataSetIdentifier": "amsaggregatorpatchdetails",
+                "ColumnName": "reportdate"
+              },
+              "ParameterName": "ReportDate",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "7f70f71c-09bd-450c-b24e-bca62fb4d6eb",
+                "Scope": "ALL_VISUALS"
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      }
+    ],
+    "AnalysisDefaults": {
+      "DefaultNewSheetConfiguration": {
+        "InteractiveLayoutConfiguration": {
+          "Grid": {
+            "CanvasSizeOptions": {
+              "ScreenCanvasSizeOptions": {
+                "ResizeOption": "RESPONSIVE"
+              }
+            }
+          }
+        },
+        "SheetContentType": "INTERACTIVE"
+      }
+    }
+  }
+}
