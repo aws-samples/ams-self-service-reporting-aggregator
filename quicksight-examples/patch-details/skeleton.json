@@ -55,13 +55,13 @@
               "Title": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Linux Instances with aá</inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">\n    <b>Critical Severity</b>\n  </inline>\n  <inline font-size=\"20px\">áPatch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Linux Instances with a </inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">\n    <b>Critical Severity</b>\n  </inline>\n  <inline font-size=\"20px\"> Patch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
                 }
               },
               "Subtitle": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-subtitle>\n  For Linux-based operating system types that report a severity level for patches, Patch Manager uses the severity level reported by the software publisher for the update notice or individual patch. Patch Manager doesn't derive severity levels from third-party sources, such as theá\n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Common Vulnerability</a>\n  á\n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Scoring System</a>\n  á(CVSS), or from metrics released by theá\n  <a href=\"https://nvd.nist.gov/vuln\" target=\"_blank\">Nationalá</a>\n  <a href=\"https://nvd.nist.gov/vuln\" target=\"_blank\">Vulnerability Database</a>\n  á(NVD).\n  <br/>\n  <br/>\n  <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html\" target=\"_blank\">https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html</a>\n</visual-subtitle>"
+                  "RichText": "<visual-subtitle>\n  For Linux-based operating system types that report a severity level for patches, Patch Manager uses the severity level reported by the software publisher for the update notice or individual patch. Patch Manager doesn't derive severity levels from third-party sources, such as the \n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Common Vulnerability</a>\n   \n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Scoring System</a>\n   (CVSS), or from metrics released by the \n  <a href=\"https://nvd.nist.gov/vuln\" target=\"_blank\">National </a>\n  <a href=\"https://nvd.nist.gov/vuln\" target=\"_blank\">Vulnerability Database</a>\n   (NVD).\n  <br/>\n  <br/>\n  <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html\" target=\"_blank\">https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html</a>\n</visual-subtitle>"
                 }
               },
               "ChartConfiguration": {
@@ -144,13 +144,13 @@
               "Title": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Linux Instances with aá</inline>\n  <inline color=\"#ff9e00\" font-size=\"20px\">\n    <b>High Severity</b>\n  </inline>\n  <inline font-size=\"20px\">áPatch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Linux Instances with a </inline>\n  <inline color=\"#ff9e00\" font-size=\"20px\">\n    <b>High Severity</b>\n  </inline>\n  <inline font-size=\"20px\"> Patch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
                 }
               },
               "Subtitle": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-subtitle>\n  For Linux-based operating system types that report a severity level for patches, Patch Manager uses the severity level reported by the software publisher for the update notice or individual patch. Patch Manager doesn't derive severity levels from third-party sources, such as theá\n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Common Vulnerability</a>\n  á\n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Scoring System</a>\n  á(CVSS), or from metrics released by theá\n  <a href=\"https://nvd.nist.gov/vuln\" target=\"_blank\">National Vulnerability Database</a>\n  á(NVD).\n  <br/>\n  <br/>\n  <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html\" target=\"_blank\">https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html</a>\n</visual-subtitle>"
+                  "RichText": "<visual-subtitle>\n  For Linux-based operating system types that report a severity level for patches, Patch Manager uses the severity level reported by the software publisher for the update notice or individual patch. Patch Manager doesn't derive severity levels from third-party sources, such as the \n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Common Vulnerability</a>\n   \n  <a href=\"https://www.first.org/cvss/\" target=\"_blank\">Scoring System</a>\n   (CVSS), or from metrics released by the \n  <a href=\"https://nvd.nist.gov/vuln\" target=\"_blank\">National Vulnerability Database</a>\n   (NVD).\n  <br/>\n  <br/>\n  <a href=\"https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html\" target=\"_blank\">https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-selection.html</a>\n</visual-subtitle>"
                 }
               },
               "ChartConfiguration": {
@@ -233,13 +233,13 @@
               "Title": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Windows Instances with aá</inline>\n  <inline color=\"#ff9e00\" font-size=\"20px\">\n    <b>High Severity</b>\n  </inline>\n  <inline font-size=\"20px\">áPatch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Windows Instances with a </inline>\n  <inline color=\"#ff9e00\" font-size=\"20px\">\n    <b>High Severity</b>\n  </inline>\n  <inline font-size=\"20px\"> Patch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
                 }
               },
               "Subtitle": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-subtitle>\n  A vulnerability whose exploitation could result in compromise of the confidentiality, integrity, or availability of user data, or of the integrity or availability of processing resources. Microsoft recommends that customers apply Important updates at the earliest opportunity.á\n  <br/>\n  <br/>\n  <a href=\"https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system\" target=\"_blank\">https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system</a>\n</visual-subtitle>"
+                  "RichText": "<visual-subtitle>\n  A vulnerability whose exploitation could result in compromise of the confidentiality, integrity, or availability of user data, or of the integrity or availability of processing resources. Microsoft recommends that customers apply Important updates at the earliest opportunity. \n  <br/>\n  <br/>\n  <a href=\"https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system\" target=\"_blank\">https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system</a>\n</visual-subtitle>"
                 }
               },
               "ChartConfiguration": {
@@ -328,7 +328,7 @@
               "Subtitle": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-subtitle>\n  <inline color=\"#951c1e\">\n    <b>\n      <i>Not Covered</i>\n    </b>\n  </inline>\n  <i>á= EC2 instances that are not configured for patching, and will not be patched</i>\n</visual-subtitle>"
+                  "RichText": "<visual-subtitle>\n  <inline color=\"#951c1e\">\n    <b>\n      <i>Not Covered</i>\n    </b>\n  </inline>\n  <i> = EC2 instances that are not configured for patching, and will not be patched</i>\n</visual-subtitle>"
                 }
               },
               "ChartConfiguration": {
@@ -425,7 +425,7 @@
               "Subtitle": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-subtitle>\n  <inline color=\"#951c1e\">\n    <b>\n      <i>Not Covered</i>\n    </b>\n  </inline>\n  <i>á= EC2 instances that are not configured for patching, and will not be patched</i>\n</visual-subtitle>"
+                  "RichText": "<visual-subtitle>\n  <inline color=\"#951c1e\">\n    <b>\n      <i>Not Covered</i>\n    </b>\n  </inline>\n  <i> = EC2 instances that are not configured for patching, and will not be patched</i>\n</visual-subtitle>"
                 }
               },
               "ChartConfiguration": {
@@ -569,13 +569,13 @@
               "Title": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Windowsá</inline>\n  <inline font-size=\"20px\"/>\n  <inline font-size=\"20px\">Instances with aá</inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">\n    <b>Critical Severity</b>\n  </inline>\n  <inline font-size=\"20px\">áPatch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Windows </inline>\n  <inline font-size=\"20px\"/>\n  <inline font-size=\"20px\">Instances with a </inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">\n    <b>Critical Severity</b>\n  </inline>\n  <inline font-size=\"20px\"> Patch Available (grouped by patching maintenance window coverage)</inline>\n</visual-title>"
                 }
               },
               "Subtitle": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-subtitle>\n  A vulnerability whose exploitation could allow code executioná\n  <b>\n    <i>withoutá</i>\n  </b>\n  user interaction. These scenarios include self-propagating malware (e.g. network worms), or unavoidable common use scenarios where code execution occursáwithoutáwarnings or prompts. This could mean browsing to a web page or opening email. Microsoft recommends that customers apply Critical updates immediately.\n  <br/>\n  <br/>\n  <a href=\"https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system\" target=\"_blank\">https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system</a>\n</visual-subtitle>"
+                  "RichText": "<visual-subtitle>\n  A vulnerability whose exploitation could allow code execution \n  <b>\n    <i>without </i>\n  </b>\n  user interaction. These scenarios include self-propagating malware (e.g. network worms), or unavoidable common use scenarios where code execution occurs without warnings or prompts. This could mean browsing to a web page or opening email. Microsoft recommends that customers apply Critical updates immediately.\n  <br/>\n  <br/>\n  <a href=\"https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system\" target=\"_blank\">https://www.microsoft.com/en-us/msrc/security-update-severity-rating-system</a>\n</visual-subtitle>"
                 }
               },
               "ChartConfiguration": {
@@ -658,13 +658,13 @@
               "Title": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-title>\n  <inline color=\"#000000\" font-size=\"20px\">Please start theseá</inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">stopped EC2 instances</inline>\n  <inline color=\"#000000\" font-size=\"20px\">áthat are scheduled for patching within the next 72 hours.</inline>\n</visual-title>"
+                  "RichText": "<visual-title>\n  <inline color=\"#000000\" font-size=\"20px\">Please start these </inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">stopped EC2 instances</inline>\n  <inline color=\"#000000\" font-size=\"20px\"> that are scheduled for patching within the next 72 hours.</inline>\n</visual-title>"
                 }
               },
               "Subtitle": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-subtitle>\n  <inline color=\"#23d194\">\n    <b>\n      <i>\"No Data\"</i>\n    </b>\n  </inline>\n  <i>á= There are no stopped instances that are scheduled for patching within the next 72 hours. Only running instances can be patched, stopped instances will not be auto-started.</i>\n</visual-subtitle>"
+                  "RichText": "<visual-subtitle>\n  <inline color=\"#23d194\">\n    <b>\n      <i>\"No Data\"</i>\n    </b>\n  </inline>\n  <i> = There are no stopped instances that are scheduled for patching within the next 72 hours. Only running instances can be patched, stopped instances will not be auto-started.</i>\n</visual-subtitle>"
                 }
               },
               "ChartConfiguration": {
@@ -1023,7 +1023,7 @@
               "Title": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Patched in the last 7 days withá</inline>\n  <inline color=\"#23d194\" font-size=\"20px\">no outstanding patches</inline>\n</visual-title>"
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Patched in the last 7 days with </inline>\n  <inline color=\"#23d194\" font-size=\"20px\">no outstanding patches</inline>\n</visual-title>"
                 }
               },
               "Subtitle": {
@@ -1172,7 +1172,7 @@
               "Title": {
                 "Visibility": "VISIBLE",
                 "FormatText": {
-                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Patched in the last 7 days with</inline>\n  <inline color=\"#951c1e\" font-size=\"20px\">á&gt; 0 outstanding patches</inline>\n</visual-title>"
+                  "RichText": "<visual-title>\n  <inline font-size=\"20px\">Patched in the last 7 days with</inline>\n  <inline color=\"#951c1e\" font-size=\"20px\"> &gt; 0 outstanding patches</inline>\n</visual-title>"
                 }
               },
               "Subtitle": {
