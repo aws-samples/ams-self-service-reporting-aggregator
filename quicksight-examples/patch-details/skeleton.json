@@ -1,7 +1,7 @@
 {
-  "AwsAccountId": "REPLACEME",
-  "AnalysisId": "REPLACEME",
-  "Name": "REPLACEME",
+  "AwsAccountId": "REPLACE_ME_AWS_ACCOUNT_ID",
+  "AnalysisId": "REPLACE_ME_WITH_ID_OF_CHOICE",
+  "Name": "REPLACE_ME_WITH_NAME_OF_CHOICE",
   "Permissions": [
     {
       "Actions": [
@@ -13,14 +13,14 @@
         "quicksight:DescribeAnalysis",
         "quicksight:UpdateAnalysis"
       ],
-      "Principal": "arn:aws:quicksight:REPLACE_ME_WITH_AWS_REGION:REDACTED:user/default/THIS_SHOULD_BE_AN_ADMIN"
+      "Principal": "arn:aws:quicksight:REPLACE_ME_WITH_AWS_REGION:REPLACE_ME_AWS_ACCOUNT_ID:user/default/THIS_SHOULD_BE_AN_ADMIN"
     }
   ],
   "Definition": {
     "DataSetIdentifierDeclarations": [
       {
         "Identifier": "amsaggregatorpatchdetails",
-        "DataSetArn": "arn:aws:quicksight:REPLACE_ME_WITH_AWS_REGION:REDACTED:dataset/REDACTED"
+        "DataSetArn": "arn:aws:quicksight:REPLACE_ME_WITH_AWS_REGION:REPLACE_ME_AWS_ACCOUNT_ID:dataset/REPLACE_ME_WITH_DATASET_ID"
       }
     ],
     "Sheets": [
