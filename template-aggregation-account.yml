@@ -42,6 +42,11 @@ Parameters:
     AllowedPattern: ^cron\((\S+\s){5}\S+\)$
     Default: cron(0 21 * * ? *)
     Description: The time at which the Windows Missing Crawler will be scheduled to run (default - 9pm UTC every day)
+  WeeklyIncidentReportCrawlerSchedule:
+    Type: String
+    AllowedPattern: ^cron\((\S+\s){5}\S+\)$
+    Default: cron(0 21 ? * MON *)
+    Description: The time at which the Incident Report will be scheduled to run (default - 9pm UTC every Monday)
 Resources:
   AggregatorKMSKey:
     Type: AWS::KMS::Key
@@ -197,6 +202,42 @@ Resources:
       WorkGroupConfiguration:
         ResultConfiguration:
           OutputLocation: !Sub "s3://${AggregatorAthenaWorkgroupBucket}/queryresults/"
+  AggregatorExplicitDenyAMSResourcesPolicy:
+    # AMS deploys resources into customer accounts which are necessary for the operation
+    # of the AMS Service. This policy, when attached to IAM Roles in this template, prevents those
+    # Principals from mutating AMS Managed Resources through the use of explicit deny statements.
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: Explicitly denies Glue and CloudWatch actions on AMS Management Resources
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: ExplicitDenyAMSManagedLogResources
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Effect: Deny
+            Resource:
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/AMS/*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/Ams/*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/ams/*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/AMS*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/Ams*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/ams*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/AMS*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/Ams*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/ams*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/mc/*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/MC/*
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/Mc/*
+          - Sid: ExplicitDenyAMSManagedGlueResources
+            Action:
+              - glue:*
+            Effect: Deny
+            Resource:
+              - !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:ams*
+              - !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:mc-a*-internal-*
   AggregatorDB:
     Type: AWS::Glue::Database
     Properties:
@@ -295,42 +336,6 @@ Resources:
             Parameters:
               serialization.format: "1"
         TableType: EXTERNAL_TABLE
-  AggregatorExplicitDenyAMSResourcesPolicy:
-    # AMS deploys resources into customer accounts which are necessary for the operation
-    # of the AMS Service. This policy, when attached to IAM Roles in this template, prevents those
-    # Principals from mutating AMS Managed Resources through the use of explicit deny statements.
-    Type: AWS::IAM::ManagedPolicy
-    Properties:
-      Description: Explicitly denies Glue and CloudWatch actions on AMS Management Resources
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Sid: ExplicitDenyAMSManagedLogResources
-            Action:
-              - logs:CreateLogGroup
-              - logs:CreateLogStream
-              - logs:PutLogEvents
-            Effect: Deny
-            Resource:
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/AMS/*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/Ams/*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/ams/*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/AMS*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/Ams*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/ams*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/AMS*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/Ams*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/ams*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/mc/*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/MC/*
-              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/Mc/*
-          - Sid: ExplicitDenyAMSManagedGlueResources
-            Action:
-              - glue:*
-            Effect: Deny
-            Resource:
-              - !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:ams*
-              - !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:mc-a*-internal-*
   AggregatorPatchDetailsCrawlerRole:
     Type: AWS::IAM::Role
     Properties:
@@ -641,7 +646,7 @@ Resources:
       Description: Scheduled to crawl 'Instance Details Patch Orchestrator' reports daily.
       Role: !GetAtt AggregatorInstanceDetailsPOCrawlerRole.Arn
       Schedule:
-        ScheduleExpression: !Ref DailyBackupCrawlerSchedule
+        ScheduleExpression: !Ref InstanceDetailsCrawlerSchedule
       Targets:
         CatalogTargets:
           - DatabaseName: !Ref AggregatorDB
@@ -845,6 +850,111 @@ Resources:
       SchemaChangePolicy:
         DeleteBehavior: LOG
         UpdateBehavior: UPDATE_IN_DATABASE
+  AggregatorWeeklyIncidentReportTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref "AWS::AccountId"
+      DatabaseName: !Ref "AggregatorDB"
+      TableInput:
+        Name: amsaggregatorweeklyincidentreport
+        PartitionKeys:
+          - Name: reportdate
+            Type: string
+          - Name: awsaccountid
+            Type: string
+        StorageDescriptor:
+          Columns:
+            - Name: dataset_datetime
+              Type: string
+            - Name: aws_account_id
+              Type: string
+            - Name: account_name
+              Type: string
+            - Name: case_id
+              Type: string
+            - Name: created_month
+              Type: string
+            - Name: priority
+              Type: string
+            - Name: severity
+              Type: string
+            - Name: status
+              Type: string
+            - Name: yuma_category
+              Type: string
+          Location: !Sub "s3://${AggregatorAggregationBucket}/incident/weeklyincidentreport"
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.IgnoreKeyTextOutputFormat
+          SerdeInfo:
+            SerializationLibrary: org.openx.data.jsonserde.JsonSerDe
+            Parameters:
+              serialization.format: "1"
+        TableType: EXTERNAL_TABLE
+  AggregatorWeeklyIncidentReportCrawlerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: glue.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSGlueServiceRole
+        - !Ref AggregatorExplicitDenyAMSResourcesPolicy
+  AggregatorWeeklyIncidentReportCrawlerRolePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: GlueCrawlerLogging
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Effect: Allow
+            Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
+          - Sid: GlueCrawlerMutate
+            Action:
+              - glue:CreateTable
+              - glue:ImportCatalogToGlue
+              - glue:UpdateDatabase
+              - glue:UpdatePartition
+              - glue:UpdateTable
+            Effect: Allow
+            Resource: !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:*
+          - Sid: GlueCrawlerS3Read
+            Action: s3:GetObject
+            Effect: Allow
+            Resource:
+              - !GetAtt AggregatorAggregationBucket.Arn
+              - !Sub "${AggregatorAggregationBucket.Arn}/incident/weeklyincidentreport/*"
+          - Sid: GlueCrawlerDecryptObjects
+            Action: kms:Decrypt
+            Effect: Allow
+            Resource: !GetAtt AggregatorKMSKey.Arn
+      PolicyName: AggregatorWeeklyIncidentReportCrawlerRolePolicy
+      Roles:
+        - Ref: AggregatorWeeklyIncidentReportCrawlerRole
+  AggregatorWeeklyIncidentReportCrawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Description: Scheduled to crawl 'Weekly Incident' reports weekly.
+      Role: !GetAtt AggregatorWeeklyIncidentReportCrawlerRole.Arn
+      Schedule:
+        ScheduleExpression: !Ref WeeklyIncidentReportCrawlerSchedule
+      Targets:
+        CatalogTargets:
+          - DatabaseName: !Ref AggregatorDB
+            Tables:
+              - !Ref AggregatorWeeklyIncidentReportTable
+      DatabaseName: !Ref AggregatorDB
+      Name: aggregatorcrawler-weeklyincidentreport
+      SchemaChangePolicy:
+        DeleteBehavior: LOG
+        UpdateBehavior: UPDATE_IN_DATABASE
   QueryYesterdaysPatchStatusOfEC2Instances:
     Type: AWS::Athena::NamedQuery
     Properties:
@@ -935,6 +1045,17 @@ Resources:
           reportdate = cast((current_date) as varchar)
         AND
           backup_job_status != 'COMPLETED'
+  QueryWeeklyIncidentReportForDate:
+    Type: AWS::Athena::NamedQuery
+    Properties:
+      WorkGroup: !Ref AggregatorAthenaWorkgroup
+      Database: !Ref AggregatorDB
+      Description: Example query, returns all Incidents that appear in the weekly report for a given date
+      Name: Incident-AllWeeklyIncidentsForReportDate
+      QueryString: |
+        SELECT *
+        FROM amsaggregatordatabase.amsaggregatorweeklyincidentreport
+        WHERE reportdate='2023-05-15'
   AggregatorAthenaPolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
@@ -987,3 +1108,4 @@ Outputs:
     Value: !Ref AggregatorAthenaPolicy
     Export:
       Name: AggregatorAthenaPolicyArn
+

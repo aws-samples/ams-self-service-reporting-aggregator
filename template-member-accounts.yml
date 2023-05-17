@@ -82,6 +82,7 @@ Resources:
           WINDOWS_MISSING_REGEX = r"^json\/patch\/windows_missing_patches\/Date=(\d{4}-\d{2}-\d{2})\/(.+).json$"
           INSTANCE_DETAILS_REGEX = r"^json\/patch\/instance_details_patch_orchestrator\/Date=(\d{4}-\d{2}-\d{2})\/(.+).json$"
           DAILY_BACKUP_REGEX = r"^json\/backup\/daily_backup_report\/Date=(\d{4}-\d{2}-\d{2})\/(.+).json$"
+          WEEKLY_INCIDENT_REPORT_REGEX = r"^json\/incident\/weekly_incident_report\/Date=(\d{4}-\d{2}-\d{2})\/(.+).json$"
 
           s3_resource = boto3.resource("s3")
 
@@ -107,6 +108,7 @@ Resources:
               "patch/windowsmissingpatches": WINDOWS_MISSING_REGEX,
               "patch/instancedetailspatchorchestrator": INSTANCE_DETAILS_REGEX,
               "backup/dailybackupreport": DAILY_BACKUP_REGEX,
+              "incident/weeklyincidentreport": WEEKLY_INCIDENT_REPORT_REGEX,
             }
 
             regex_to_use = ""
@@ -121,7 +123,8 @@ Resources:
             
 
             if len(key_matches) == 4:
-              destination_s3_key = f"{report_type}/reportdate={key_matches[1]}/awsaccountid={AWS_ACCOUNT_ID}/{key_matches[2]}.json" 
+              filename = urllib.parse.quote(key_matches[2], encoding="utf-8")
+              destination_s3_key = f"{report_type}/reportdate={key_matches[1]}/awsaccountid={AWS_ACCOUNT_ID}/{filename}.json" 
 
               try:
                 destination_bucket = s3_resource.Bucket(REPORT_AGGREGATE_BUCKET_NAME)
@@ -314,3 +317,4 @@ Resources:
       ServiceToken: !GetAtt S3LambdaIntegrationCustomResourceFunction.Arn
       LambdaArn: !GetAtt ReportAggregatorFunction.Arn
       Bucket: !Sub ams-reporting-data-a${AWS::AccountId}
+
