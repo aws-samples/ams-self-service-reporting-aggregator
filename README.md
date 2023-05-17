@@ -49,9 +49,10 @@ After deploying the CloudFormation templates provided in this package, AMS SSR r
 - `DailyBackupCrawlerSchedule` is a cron expression representing the time the Glue Crawler should crawl for new reports. The cron expects 6 parts separated by whitespace, for example `cron(0 21 * * ? *)`
 - `PatchDetailsCrawlerSchedule` is a cron expression representing the time the Glue Crawler should crawl for new reports. The cron expects 6 parts separated by whitespace, for example `cron(0 21 * * ? *)`
 - `InstanceDetailsCrawlerSchedule` is a cron expression representing the time the Glue Crawler should crawl for new reports. The cron expects 6 parts separated by whitespace, for example `cron(0 21 * * ? *)`
+- `WeeklyIncidentReportCrawlerSchedule` is a cron expression representing the time the Glue Crawler should crawl for new reports. The cron expects 6 parts separated by whitespace, for example `cron(0 21 ? * MON *)`
 - `WindowsMissingCrawlerSchedule` is a cron expression representing the time the Glue Crawler should crawl for new reports. The cron expects 6 parts separated by whitespace, for example `cron(0 21 * * ? *)`
 
-_This package expects AMS SSR to publish new SSR reports into your AMS-Managed AWS Account by 21:00 UTC each day._
+_This package expects AMS SSR to publish new SSR reports into your AMS-Managed AWS Account by 21:00 UTC each day (or, for the Weekly Incident Report, weekly)._
 
 #### CloudFormation Outputs:
 
@@ -85,7 +86,7 @@ The CloudFormation template `template-aggregation-account.yml` deploys an IAM Ma
 
 ### Querying the aggregated data
 
-To get started querying aggregated data, from the Athena Console in the report aggregation account, 4x example "Saved Queries" have been provided. These queries are accessible via the `Saved Query` tab within the `ams-report-aggregator-workgroup` Athena Workgroup. These queries are intended as examples only. As this is an Open Source project, contributions from the community are welcome. See [CONTRIBUTING](CONTRIBUTING.md) for more information.
+To get started querying aggregated data, from the Athena Console in the report aggregation account, 5x example "Saved Queries" have been provided. These queries are accessible via the `Saved Query` tab within the `ams-report-aggregator-workgroup` Athena Workgroup. These queries are intended as examples only. As this is an Open Source project, contributions from the community are welcome. See [CONTRIBUTING](CONTRIBUTING.md) for more information.
 
 ![SSR Saved Athena Queries](images/saved-queries.png)
 
