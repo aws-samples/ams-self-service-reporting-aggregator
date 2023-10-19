@@ -107,7 +107,9 @@ The cost to operate this package is based on a number of factors that are unique
 - The amount of data that Athena processes when executing SQL queries on aggregated data;
 - The number of times you use Athena to query aggregated data.
 
-In November 2022 this package was deployed in a development environment consisting of 8x AWS accounts. The total AWS charges (across all 8x AWS accounts) for this package was less than $10 USD for the month.
+In November 2022 the core solutionwas deployed in a development environment consisting of 8x AWS accounts. The total AWS charges (across all 8x AWS accounts) for this package was approximately $10 USD for the month.
+
+There is an additional cost should you choose to deploy the Amazon QuickSight dashboard add-on https://github.com/aws-samples/ams-self-service-reporting-aggregator/blob/main/quicksight-examples/patch-details/README.md
 
 **🚨 Your experience will differ, therefore you must estimate cost before deploying this package in your environment.**
 
