@@ -1,9 +1,11 @@
 # self-service-reporting-aggregator
 
-![AMS Accelerate is Compatible](./images/accelerate.svg)
-![AMS Advanced is Incompatible](./images/advanced.svg)
+![AMS Accelerate is compatible](./images/accelerate.svg)
+![AMS Accelerate Opt-In Regions incompatible](./images/accelerate-opt-in.svg)
+![AMS Accelerate in AWS GovCloud incompatible](./images/govcloud.svg)
+![AMS Advanced - Speak with your AMS CSDM](./images/advanced.svg)
 
-_N.B. This package is compatible with AMS Accelerate only, it is unable to be deployed into AMS Advanced Landing Zones at this time._
+_N.B. This package is compatible with AMS Accelerate only (minus GovCloud, and Opt-In Regions)._
 
 ## Introduction
 
